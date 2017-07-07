@@ -1,0 +1,19 @@
+{
+  "name": "verificacion-links-wiki",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "init": "ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/node": "^7.0.32",
+    "remark": "^7.0.1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "glob": "^7.1.2"
+  },
+  "description": ""
+}
