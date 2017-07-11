@@ -95,7 +95,7 @@ function getLinks(childOfChild: any): string[] {
                         links.push(fixLink(subChild.url));
                         break;
                     case 'text':
-                    /**hay algunos caracteres especiales que necesitan ser comprobados */
+                    /**there are some special characters that need to be checked */
                         if ((<string>subChild.value).endsWith("++")) {
                             break;
                         }
@@ -121,7 +121,8 @@ function fixLink(link: string) {
     if (link.indexOf('[') >= 0) {
         return link.substring(0, link.indexOf('['));
 
-    } else if (link.indexOf("'") > 0) {
+    } 
+    else if (link.indexOf("'") > 0) {
         return link.substring(0, link.indexOf("'"));
     }
     else if (link.indexOf('"') > 0) {
