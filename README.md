@@ -3,9 +3,15 @@ Tool to check each link of each asciidoc inside a wiki of a gitHub repository
 # How to use
 1. Clone this repository into a local folder on your computer
 2. Open the console and move to that folder
-3. Install the dependencies:
+3. Install ts-node 
+
+	`npm install ts-node`
+
+4. Install the dependencies:
 
 	`nmp install`
+
+npm install ts-node
 
 4. Clone the wiki you want to check links:
 

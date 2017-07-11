@@ -39,8 +39,6 @@ glob(directory + '*asciidoc', async function (err: any, files: any) {
 }
 )
 
-
-
 function exitCode(code1: boolean, code2: boolean) {
 
     if (code1 && code2) {
@@ -95,7 +93,7 @@ function getLinks(childOfChild: any): string[] {
                         links.push(fixLink(subChild.url));
                         break;
                     case 'text':
-                    /**there are some special characters that need to be checked */
+                        /**there are some special characters that need to be checked */
                         if ((<string>subChild.value).endsWith("++")) {
                             break;
                         }
@@ -121,7 +119,7 @@ function fixLink(link: string) {
     if (link.indexOf('[') >= 0) {
         return link.substring(0, link.indexOf('['));
 
-    } 
+    }
     else if (link.indexOf("'") > 0) {
         return link.substring(0, link.indexOf("'"));
     }
@@ -145,6 +143,7 @@ async function checkLinks(eLinks: string[]) {
     let code = await Promise.all(eLinks.map(sendRequest));
     return code.reduce((a, b) => a && b);
 }
+/**There are 2 types of InternalLinks, anchor types(#) and resource types(/) */
 async function checkInternalLinks(Ilinks: string[]) {
     let adoc = '.asciidoc';
     let code = true;

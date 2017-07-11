@@ -13,6 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/glob": "^5.0.30",
+    "@types/superagent": "^3.5.2",
     "glob": "^7.1.2"
   },
   "description": ""
