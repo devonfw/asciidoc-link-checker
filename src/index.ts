@@ -134,7 +134,13 @@ function getLinkValue(link: string) {
     return link.substring(link.indexOf('link:') + 5)
 }
 function getImageValue(link: string) {
-    return link.substring(link.indexOf('images'))
+    if ((link.indexOf('image::http:') >=0) || (link.indexOf('image::https:') >=0)) {
+        return link.substring(link.indexOf('http'))
+    }
+    else if(link.indexOf('image::images') >= 0){
+        return link.substring(link.indexOf('images'))
+    }
+    else return link.substring(link.indexOf('::'+2))
 }
 /**Verify the links */
 async function checkLinks(eLinks: string[]) {

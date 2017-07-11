@@ -11,8 +11,6 @@ Tool to check each link of each asciidoc inside a wiki of a gitHub repository
 
 	`nmp install`
 
-npm install ts-node
-
 5. Clone the wiki you want to check links:
 
 	`git clone https://github.com/my-repository/my-repository.wiki.git`
