@@ -13,11 +13,11 @@ Tool to check each link of each asciidoc inside a wiki of a gitHub repository
 
 npm install ts-node
 
-4. Clone the wiki you want to check links:
+5. Clone the wiki you want to check links:
 
 	`git clone https://github.com/my-repository/my-repository.wiki.git`
 
-5. Start the checkout:
+6. Start the checkout:
 
 	`$ ts-node ./src/index.ts ./my-repository.wiki/`
 

@@ -7,15 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "@types/node": "^7.0.32",
-    "remark": "^7.0.1"
+    "@types/glob": "^5.0.30",
+    "@types/superagent": "^3.5.2",
+    "@types/node": "^7.0.32"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/glob": "^5.0.30",
-    "@types/superagent": "^3.5.2",
-    "glob": "^7.1.2"
+    "glob": "^7.1.2",
+    "remark": "^7.0.1",
+    "superagent": "^3.5.2"
   },
   "description": ""
 }
