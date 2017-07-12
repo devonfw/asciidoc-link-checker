@@ -1,9 +1,9 @@
 import * as fs from 'fs';
 import * as request from 'superagent';
 import * as glob from 'glob';
+let remark = require('remark');
 
 let directory = process.argv[2]; // wiki directory
-let remark = require('remark');
 let links: string[] = [];
 let linkFile: string[] = [];
 let external_links: string[] = []
@@ -61,12 +61,12 @@ async function sendRequest(link: string): Promise<boolean> {
             head(req).
             end(function (err: any, res: request.Response) {
                 if (res == undefined) {
-                    console.log(link + " " + 'site cant be reached')
+                    console.log(linkExternalFile[external_links.indexOf(link)] + " --> " + link + " " + 'site cant be reached')
                 }
                 else {
                     response = res.status
                     if (response == 404 && link.indexOf('https://github.com') >= 0) {
-                        console.log(link + ' cannot be verified')
+                        console.log(linkExternalFile[external_links.indexOf(link)] + " --> " + link + ' cannot be verified')
                     }
                     else {
                         if (response == 404) {
@@ -90,6 +90,9 @@ function getLinks(childOfChild: any): string[] {
             if (subChild.type) {
                 switch (subChild.type) {
                     case 'link':
+                        if (subChild.url.indexOf('http://localhost') >= 0) {
+                            break;
+                        }
                         links.push(fixLink(subChild.url));
                         break;
                     case 'text':
@@ -104,6 +107,9 @@ function getLinks(childOfChild: any): string[] {
                             }
                         }
                         else if ((str.indexOf('image::') >= 0) && (str.startsWith("//") == false)) {
+                            if (str.endsWith('[]')) {
+                                str = str.substring(0, str.lastIndexOf('['))
+                            }
                             links.push(getImageValue(str))
                         }
                     default:
@@ -116,6 +122,7 @@ function getLinks(childOfChild: any): string[] {
 }
 
 function fixLink(link: string) {
+
     if (link.indexOf('[') >= 0) {
         return link.substring(0, link.indexOf('['));
 
@@ -133,15 +140,18 @@ function getLinkValue(link: string) {
 
     return link.substring(link.indexOf('link:') + 5)
 }
+
 function getImageValue(link: string) {
-    if ((link.indexOf('image::http:') >=0) || (link.indexOf('image::https:') >=0)) {
-        return link.substring(link.indexOf('http'))
-    }
-    else if(link.indexOf('image::images') >= 0){
+
+    if (link.indexOf('images') >= 0) {
         return link.substring(link.indexOf('images'))
     }
-    else return link.substring(link.indexOf('::'+2))
+    else if ((link.indexOf('http:') >= 0) || (link.indexOf('https:') >= 0)) {
+        return link.substring(link.indexOf('http'))
+    }
+    else return link.substring(link.indexOf('::') + 2)
 }
+
 /**Verify the links */
 async function checkLinks(eLinks: string[]) {
 
@@ -149,11 +159,13 @@ async function checkLinks(eLinks: string[]) {
     let code = await Promise.all(eLinks.map(sendRequest));
     return code.reduce((a, b) => a && b);
 }
+
 /**There are 2 types of InternalLinks, anchor types(#) and resource types(/) */
 async function checkInternalLinks(Ilinks: string[]) {
     let adoc = '.asciidoc';
     let code = true;
     for (let i = 0; i < Ilinks.length; i++) {
+
         if (Ilinks[i].indexOf('#') > 0) {
             let str = (Ilinks[i].substring(0, Ilinks[i].indexOf('#')))
             if (!(fs.existsSync(directory + str + adoc))) {
