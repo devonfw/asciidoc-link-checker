@@ -3,41 +3,44 @@ import * as request from 'superagent';
 import * as glob from 'glob';
 let remark = require('remark');
 
-let directory = process.argv[2]; // wiki directory
+let directory: string; // wiki directory
 let links: string[] = [];
 let linkFile: string[] = [];
 let external_links: string[] = []
-let linkExternalFile: string[] = [];
+let linkExternalFile: string[] = []; 
 
 /**Read each asciidoc of the directory where the wiki has been cloned and call the function getlinks to iterate for each one */
-glob(directory + '*asciidoc', async function (err: any, files: any) {
-    files.forEach(
-        function (file: any) {
-            let ast = remark().parse(fs.readFileSync(file, 'utf-8'));
-            let childrens: any[] = ast.children;
-            childrens.forEach(child => {
-                getLinks(child).forEach(link => {
-                    if (link.indexOf('http:') >= 0 || link.indexOf('https:') >= 0) {
-                        if (!(external_links.indexOf(link) > 0)) {
-                            external_links.push(link);
-                            linkExternalFile.push(file);
+export function linkChecker(dir: string) {
+    directory = dir
+    glob(directory + '*asciidoc', async function (err: any, files: any) {
+        files.forEach(
+            function (file: any) {
+                let ast = remark().parse(fs.readFileSync(file, 'utf-8'));
+                let childrens: any[] = ast.children;
+                childrens.forEach(child => {
+                    getLinks(child).forEach(link => {
+                        if (link.indexOf('http:') >= 0 || link.indexOf('https:') >= 0) {
+                            if (!(external_links.indexOf(link) > 0)) {
+                                external_links.push(link);
+                                linkExternalFile.push(file);
+                            }
                         }
-                    }
-                    else {
-                        if (!(links.indexOf(link) > 0)) {
-                            links.push(link);
-                            linkFile.push(file);
+                        else {
+                            if (!(links.indexOf(link) > 0)) {
+                                links.push(link);
+                                linkFile.push(file);
+                            }
                         }
-                    }
+                    })
                 })
-            })
-        });
+            });
 
-    let code1 = await checkLinks(external_links);
-    let code2 = await checkInternalLinks(links);
-    exitCode(code1, code2)
+        let code1 = await checkLinks(external_links);
+        let code2 = await checkInternalLinks(links);
+        exitCode(code1, code2)
+    }
+    )
 }
-)
 
 function exitCode(code1: boolean, code2: boolean) {
 
