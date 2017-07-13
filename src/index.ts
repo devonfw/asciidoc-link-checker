@@ -42,6 +42,8 @@ export function linkChecker(dir: string) {
     )
 }
 
+/**Receives 2 codes(1 code for external links and 1 code for internal links, compare them and show the output*/
+
 function exitCode(code1: boolean, code2: boolean) {
 
     if (code1 && code2) {
@@ -54,7 +56,9 @@ function exitCode(code1: boolean, code2: boolean) {
     }
 
 }
-
+/**Function to do a HEAD request for the external links returning the status 
+ * returns code = true if status 200 or code = false if status 404
+*/
 async function sendRequest(link: string): Promise<boolean> {
     let req = link
     let response: any
@@ -68,6 +72,7 @@ async function sendRequest(link: string): Promise<boolean> {
                 }
                 else {
                     response = res.status
+                    /**Request to private repositories need autentication */
                     if (response == 404 && link.indexOf('https://github.com') >= 0) {
                         console.log(linkExternalFile[external_links.indexOf(link)] + " --> " + link + ' cannot be verified')
                     }
@@ -84,6 +89,8 @@ async function sendRequest(link: string): Promise<boolean> {
             }
             ))
 }
+
+/**Recursively get the links from the AST and push them into an array, there are 2 types of link(external and internal) and each one have one array */
 
 function getLinks(childOfChild: any): string[] {
     let links: string[] = [];
@@ -124,6 +131,8 @@ function getLinks(childOfChild: any): string[] {
     return links;
 }
 
+/**There are some links wich end with some extra character and need to be fixed */
+
 function fixLink(link: string) {
 
     if (link.indexOf('[') >= 0) {
@@ -138,6 +147,7 @@ function fixLink(link: string) {
     }
     else return link;
 }
+/**The value of those links in the AST with type 'link' are getting here */
 
 function getLinkValue(link: string) {
 
