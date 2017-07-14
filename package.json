@@ -12,6 +12,7 @@
   "main": "build/index.ts",
   "scripts": {
     "build": "tsc",
+    "test": "mocha --opts mocha.opts",
     "dev": "tsc -w",
     "prepublish": "npm run build",
     "release": "np"
@@ -21,9 +22,15 @@
     "link-check"
   ],
   "devDependencies": {
+    "@types/chai": "^4.0.1",
     "@types/glob": "^5.0.30",
+    "@types/mocha": "^2.2.41",
     "@types/node": "^7.0.32",
-    "@types/superagent": "^3.5.2"
+    "@types/superagent": "^3.5.2",
+    "chai": "^4.1.0",
+    "mocha": "^3.4.2",
+    "ts-node": "^3.2.0",
+    "typescript": "^2.4.1"
   },
   "bin": {
     "linkchecker": "./bin/linkchecker"

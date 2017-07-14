@@ -49,6 +49,7 @@ function linkChecker(dir) {
     });
 }
 exports.linkChecker = linkChecker;
+/**Receives 2 codes(1 code for external links and 1 code for internal links, compare them and show the output*/
 function exitCode(code1, code2) {
     if (code1 && code2) {
         console.log('DONE: exit code 0 ');
@@ -59,6 +60,9 @@ function exitCode(code1, code2) {
         process.exit(1);
     }
 }
+/**Function to do a HEAD request for the external links returning the status
+ * returns code = true if status 200 or code = false if status 404
+*/
 function sendRequest(link) {
     return __awaiter(this, void 0, void 0, function* () {
         let req = link;
@@ -72,6 +76,7 @@ function sendRequest(link) {
             }
             else {
                 response = res.status;
+                /**Request to private repositories need autentication */
                 if (response == 404 && link.indexOf('https://github.com') >= 0) {
                     console.log(linkExternalFile[external_links.indexOf(link)] + " --> " + link + ' cannot be verified');
                 }
@@ -87,6 +92,8 @@ function sendRequest(link) {
         }));
     });
 }
+exports.sendRequest = sendRequest;
+/**Recursively get the links from the AST and push them into an array, there are 2 types of link(external and internal) and each one have one array */
 function getLinks(childOfChild) {
     let links = [];
     if (childOfChild.children) {
@@ -125,6 +132,7 @@ function getLinks(childOfChild) {
     }
     return links;
 }
+/**There are some links wich end with some extra character and need to be fixed */
 function fixLink(link) {
     if (link.indexOf('[') >= 0) {
         return link.substring(0, link.indexOf('['));
@@ -138,9 +146,12 @@ function fixLink(link) {
     else
         return link;
 }
+exports.fixLink = fixLink;
+/**The value of those links in the AST with type 'link' are getting here */
 function getLinkValue(link) {
     return link.substring(link.indexOf('link:') + 5);
 }
+exports.getLinkValue = getLinkValue;
 function getImageValue(link) {
     if (link.indexOf('images') >= 0) {
         return link.substring(link.indexOf('images'));
@@ -151,6 +162,7 @@ function getImageValue(link) {
     else
         return link.substring(link.indexOf('::') + 2);
 }
+exports.getImageValue = getImageValue;
 /**Verify the links */
 function checkLinks(eLinks) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -166,6 +178,7 @@ function checkInternalLinks(Ilinks) {
         let adoc = '.asciidoc';
         let code = true;
         for (let i = 0; i < Ilinks.length; i++) {
+            //anchor type
             if (Ilinks[i].indexOf('#') > 0) {
                 let str = (Ilinks[i].substring(0, Ilinks[i].indexOf('#')));
                 if (!(fs.existsSync(directory + str + adoc))) {
