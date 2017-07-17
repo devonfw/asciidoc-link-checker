@@ -55,11 +55,11 @@ exports.linkChecker = linkChecker;
 /**Receives 2 codes(1 code for external links and 1 code for internal links, compare them and show the output*/
 function exitCode(code1, code2) {
     if (code1 && code2) {
-        console.log('DONE: exit code 0 ');
+        console.log('Done: All links are correct');
         process.exit();
     }
     else {
-        console.log('DONE: Some link failed, exit code 1 ');
+        console.log('DONE: Some link failed');
         process.exit(1);
     }
 }

@@ -17,10 +17,15 @@ Tool to check each link of each asciidoc inside a wiki of a gitHub repository
 The tool will check each link of each asciidoc inside the repository searching those links that are wrong
 
 # Output
-When the check is done, you will see on your console the links that didn't work along with one of this messages:
+When the check is done, you will see on your console the links that didn't work(if that's the case), along with one of this messages:
 
 If all links are correct you will see:
 'Done: All links are correct'
 
+example:
+![broken img](/images/correct.PNG)
 Otherwise you will see:
 'Done: Some link failed' 
+
+example:
+![broken img](/images/incorrect.PNG)
