@@ -7,7 +7,12 @@ let chalk = require('chalk');
 
 const HELP = `
 
-Usage: linkChecker [wiki_directory/] [options]
+Usage: linkchecker [wiki_directory/] [options]
+
+wiki_directory:
+
+Search within this directory the files with .asciidoc extension and for each file searches and verifies the links.
+Note: It's important to end with '/' for example : linkchecker  ./my-directory/
 
 Options:
 
