@@ -45,11 +45,11 @@ export function linkChecker(dir: string) {
 function exitCode(code1: boolean, code2: boolean) {
 
     if (code1 && code2) {
-        console.log('DONE: exit code 0 ')
+        console.log('Done: All links are correct')
         process.exit();
     }
     else {
-        console.log('DONE: Some link failed, exit code 1 ')
+        console.log('DONE: Some link failed')
         process.exit(1);
     }
 
