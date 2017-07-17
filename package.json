@@ -1,22 +1,53 @@
 {
-  "name": "verificacion-links-wiki",
+  "name": "@oasp/asciidoc-link-checker",
   "version": "1.0.0",
-  "main": "index.ts",
+  "description": "Tool to check each link of each asciidoc",
+  "author": {
+    "name": "Capgemini",
+    "url": "https://www.capgemini.com/"
+  },
+  "contributors": [
+    "Salvador Furio Veguer <salvador.furio-verguer@capgemini.com>"
+  ],
+  "main": "build/index.ts",
   "scripts": {
-    "init": "ts-node src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "test": "mocha --opts mocha.opts",
+    "dev": "tsc -w",
+    "prepublish": "npm run build",
+    "release": "np"
   },
+  "keywords": [
+    "AsciiDoc",
+    "link-check"
+  ],
   "devDependencies": {
+    "@types/chai": "^4.0.1",
     "@types/glob": "^5.0.30",
+    "@types/mocha": "^2.2.41",
+    "@types/node": "^7.0.32",
     "@types/superagent": "^3.5.2",
-    "@types/node": "^7.0.32"
+    "chai": "^4.1.0",
+    "mocha": "^3.4.2",
+    "ts-node": "^3.2.0",
+    "typescript": "^2.4.1"
   },
-  "author": "",
-  "license": "ISC",
+  "bin": {
+    "linkchecker": "./bin/linkchecker"
+  },
+  "license": "Apache-2.0",
   "dependencies": {
+    "chalk": "^2.0.1",
     "glob": "^7.1.2",
     "remark": "^7.0.1",
     "superagent": "^3.5.2"
   },
-  "description": ""
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oasp/asciidoc-link-checker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oasp/asciidoc-link-checker/issues"
+  },
+  "homepage": "https://github.com/oasp/asciidoc-link-checker"
 }
