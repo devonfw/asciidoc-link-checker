@@ -120,15 +120,15 @@ function getLinks(childOfChild: any): string[] {
                         break;
                     case "text":
                         // there are some special characters that need to be checked
-                        if ((subChild.value as string).endsWith(Constants.d_plus)) {
+                        if ((subChild.value as string).endsWith(Constants.dPlus)) {
                             break;
                         }
                         let str = subChild.value;
-                        if (str.indexOf(Constants.T_link) >= 0) {
-                            if (str.startsWith(Constants.d_slash) === false) {
+                        if (str.indexOf(Constants.tLink) >= 0) {
+                            if (str.startsWith(Constants.dSlash) === false) {
                                 links.push(getLinkValue(str));
                             }
-                        } else if ((str.indexOf(Constants.image) >= 0) && (str.startsWith(Constants.d_slash) === false)) {
+                        } else if ((str.indexOf(Constants.image) >= 0) && (str.startsWith(Constants.dSlash) === false)) {
                             if (str.endsWith(Constants.brackets)) {
                                 str = str.substring(0, str.lastIndexOf(Constants.bracket));
                             }
@@ -151,15 +151,15 @@ export function fixLink(link: string) {
 
     } else if (link.indexOf(Constants.quote) > 0) {
         return link.substring(0, link.indexOf(Constants.quote));
-    } else if (link.indexOf(Constants.d_quote) > 0) {
-        return link.substring(0, link.indexOf(Constants.d_quote));
+    } else if (link.indexOf(Constants.dQuote) > 0) {
+        return link.substring(0, link.indexOf(Constants.dQuote));
     } else { return link; }
 }
 /** The value of those links in the AST with type 'link' are getting here */
 
 export function getLinkValue(link: string) {
 
-    return link.substring(link.indexOf(Constants.T_link) + 5);
+    return link.substring(link.indexOf(Constants.tLink) + 5);
 }
 
 export function getImageValue(link: string) {
@@ -168,7 +168,7 @@ export function getImageValue(link: string) {
     } else if ((link.indexOf(Constants.http) >= 0) || (link.indexOf(Constants.https) >= 0)) {
         return link.substring(link.indexOf("http"));
     } else {
-        return link.substring(link.indexOf(Constants.d_colon) + 2);
+        return link.substring(link.indexOf(Constants.dColon) + 2);
     }
 }
 

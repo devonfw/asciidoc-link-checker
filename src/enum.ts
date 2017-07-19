@@ -1,25 +1,24 @@
-/**Constants */
-
+// constants
 export class Constants {
-    static readonly adoc: string = '.asciidoc';
-    static readonly images: string = 'images';
-    static readonly image: string = 'image::';
-    static readonly localhost: string = 'http://localhost';
-    static readonly T_link: string = 'link:';
-    static readonly http: string = 'http:';
-    static readonly https: string = 'https:';
-    static readonly github: string = 'https://github.com';
-    static readonly red: string = '\x1b[31m';
-    static readonly white: string = '\x1b[0m';
-    static readonly arrow: string = '--->';
-    static readonly d_slash: string = '//';
-    static readonly bracket: string = '[';
-    static readonly brackets: string = '[]';
-    static readonly quote: string = "'";
-    static readonly d_quote: string = '"';
-    static readonly hash: string = '#';
-    static readonly d_plus: string = '++';
-    static readonly d_colon: string = '::';
+    public static readonly adoc: string = ".asciidoc";
+    public static readonly images: string = "images";
+    public static readonly image: string = "image::";
+    public static readonly localhost: string = "http://localhost";
+    public static readonly tLink: string = "link:";
+    public static readonly http: string = "http:";
+    public static readonly https: string = "https:";
+    public static readonly github: string = "https://github.com";
+    public static readonly red: string = "\x1b[31m";
+    public static readonly white: string = "\x1b[0m";
+    public static readonly arrow: string = "--->";
+    public static readonly dSlash: string = "//";
+    public static readonly bracket: string = "[";
+    public static readonly brackets: string = "[]";
+    public static readonly quote: string = "'";
+    public static readonly dQuote: string = '"';
+    public static readonly hash: string = "#";
+    public static readonly dPlus: string = "++";
+    public static readonly dColon: string = "::";
 
 }
 
