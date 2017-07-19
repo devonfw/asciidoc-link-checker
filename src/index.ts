@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as glob from "glob";
 import * as request from "superagent";
-import Constants from "./enum";
+import Constants from "./constants";
 
 const remark = require("remark");
 
