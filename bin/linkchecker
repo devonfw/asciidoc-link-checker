@@ -4,6 +4,7 @@
 
 let verify_links = require('../build/index');
 let chalk = require('chalk');
+const argv = require('yargs').argv;
 
 const HELP = `
 
@@ -19,40 +20,36 @@ Options:
   -h, --help            display the help
 
 `
+
 function logError(err) {
-    if(err) {
-        switch(typeof err) {
+    if (err) {
+        switch (typeof err) {
             case 'string':
                 console.log(` ${chalk.red('Error!')} ${err}`)
                 break;
             case 'object':
-                if(err.message) {
+                if (err.message) {
                     console.log(` ${chalk.red('Error!')} ${err.message}`)
                     break;
                 }
             default:
-            console.log(` ${chalk.red('Error!')}\n  ${err}`)
+                console.log(` ${chalk.red('Error!')}\n  ${err}`)
         }
-    }
-    else {
+    } else {
         console.log(HELP)
     }
 }
 
 function linkCheck() {
-
-let directory = process.argv[2]
-
-    try{
-        if(!directory || (directory === '-h') || (directory === '--help')){
-         console.log(HELP)
+    directory = process.argv[2]
+    try {
+        if (argv.help) {
+            console.log(HELP)
+        } else {
+            verify_links.linkChecker(directory)
         }
-        else{
-        verify_links.linkChecker(directory)
-        }
-       
-    }
-    catch(e){
+
+    } catch (e) {
         logError(e)
     }
 }

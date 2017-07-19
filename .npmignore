@@ -5,4 +5,3 @@ mocha.opts
 tsconfig.json
 package-lock.json
 build/**/*.js.map
-futureWiki.md

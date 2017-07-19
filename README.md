@@ -22,10 +22,5 @@ When the check is done, you will see on your console the links that didn't work(
 If all links are correct you will see:
 'Done: All links are correct'
 
-example:
-![broken img](/images/correct.PNG)
 Otherwise you will see:
 'Done: Some link failed' 
-
-example:
-![broken img](/images/incorrect.PNG)
