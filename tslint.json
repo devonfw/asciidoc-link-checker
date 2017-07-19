@@ -12,7 +12,10 @@
         "max-line-length": [
             false
         ],
-        "prefer-for-of":false
+        "prefer-for-of":false,
+        "no-unused-expression": [
+            false
+        ]
     },
     "rulesDirectory": []
 }

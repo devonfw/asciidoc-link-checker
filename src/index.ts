@@ -13,7 +13,6 @@ const externalLinks: string[] = [];
  * getlinks to iterate for each one.
  * Glob allows you to searh inside a directory all the files with a certain extension, in this case 'asciidoc'
  */
-linkChecker(process.argv[2]);
 
 export function linkChecker(dir: string) {
 
@@ -53,7 +52,7 @@ export function linkChecker(dir: string) {
  * Receives 2 codes(1 code for external links and 1 code for internal links, compare them and show the output
  */
 
-function exitCode(code1: boolean, code2: boolean) {
+export function exitCode(code1: boolean, code2: boolean) {
 
     if (code1 && code2) {
         console.log("Done: All links are correct");
@@ -105,7 +104,7 @@ export async function sendRequest(link: string): Promise<boolean> {
  * There are 2 types of link(external and internal) and each one have one array
  */
 
-function getLinks(childOfChild: any): string[] {
+export function getLinks(childOfChild: any): string[] {
     const links: string[] = [];
     if (childOfChild.children) {
         const childrenNew: any[] = childOfChild.children;
@@ -173,14 +172,15 @@ export function getImageValue(link: string) {
 }
 
 /** Verify the links */
-async function checkLinks(eLinks: string[]) {
+export async function checkLinks(eLinks: string[]) {
+
     if (eLinks.length === 0) { process.exit(1); }
     const code = await Promise.all(eLinks.map(sendRequest));
     return code.reduce((a, b) => a && b);
 }
 
 /** There are 2 types of InternalLinks, anchor types(#) and resource types(/) */
-async function checkInternalLinks(Ilinks: string[], linkFile: string[], dir: string) {
+export async function checkInternalLinks(Ilinks: string[], linkFile: string[], dir: string) {
 
     const links = Ilinks;
     const adoc = Constants.adoc;

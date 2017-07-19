@@ -1,6 +1,6 @@
-import { fixLink, getLinkValue, getImageValue, sendRequest } from "./index"
-import { expect } from "chai"
+import { expect } from "chai";
 import "mocha";
+import { checkLinks, fixLink, getImageValue, getLinkValue, sendRequest } from "./index";
 
 describe("fixLink function", () => {
     it("should return true", () => {
