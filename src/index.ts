@@ -19,33 +19,36 @@ export function linkChecker(dir: string) {
     const linkFile: string[] = [];
     const links: string[] = [];
 
-    glob(dir + "*" + Constants.adoc, async (err: any, files: any) => {
-        files.forEach(
-            (file: any) => {
-                const ast = remark().parse(fs.readFileSync(file, "utf-8"));
-                const childrens: any[] = ast.children;
-                childrens.forEach((child) => {
-                    getLinks(child).forEach((link) => {
-                        if (link.indexOf(Constants.http) >= 0 || link.indexOf(Constants.https) >= 0) {
-                            if (!(externalLinks.indexOf(link) > 0)) {
-                                externalLinks.push(link);
-                                linkExternalFile.push(file);
+    glob(dir + "*" + Constants.adoc, async(err: any, files: any) => {
+        if (files.length === 0) {
+            console.log("Directory not found or empty.");
+        } else {
+            files.forEach(
+                (file: any) => {
+                    const ast = remark().parse(fs.readFileSync(file, "utf-8"));
+                    const childrens: any[] = ast.children;
+                    childrens.forEach((child) => {
+                        getLinks(child).forEach((link) => {
+                            if (link.indexOf(Constants.http) >= 0 || link.indexOf(Constants.https) >= 0) {
+                                if (!(externalLinks.indexOf(link) > 0)) {
+                                    externalLinks.push(link);
+                                    linkExternalFile.push(file);
+                                }
+                            } else {
+                                if (!(links.indexOf(link) > 0)) {
+                                    links.push(link);
+                                    linkFile.push(file);
+                                }
                             }
-                        } else {
-                            if (!(links.indexOf(link) > 0)) {
-                                links.push(link);
-                                linkFile.push(file);
-                            }
-                        }
+                        });
                     });
                 });
-            });
 
-        const code1 = await checkLinks(externalLinks);
-        const code2 = await checkInternalLinks(links, linkFile, dir);
-        exitCode(code1, code2);
-    },
-    );
+            const code1 = await checkLinks(externalLinks);
+            const code2 = await checkInternalLinks(links, linkFile, dir);
+            exitCode(code1, code2);
+        }
+    });
 }
 
 /**
@@ -68,36 +71,33 @@ export function exitCode(code1: boolean, code2: boolean) {
  * Function to do a HEAD request for the external links returning the status
  * returns code = true if status 200 or code = false if status 404
  */
-export async function sendRequest(link: string): Promise<boolean> {
+export async function sendRequest(link: string): Promise < boolean > {
     const req = link;
     let response: any;
     const code: boolean = true;
-    return new Promise<boolean>((resolve, reject) =>
-        request.
-            head(req).
-            end((err: any, res: request.Response) => {
-                if (res === undefined) {
-                    console.log(linkExternalFile[externalLinks.indexOf(link)] + " "
-                        + Constants.arrow + " " + link + " site can't be reached");
+    return new Promise < boolean > ((resolve, reject) =>
+        request.head(req).end((err: any, res: request.Response) => {
+            if (res === undefined) {
+                console.log(linkExternalFile[externalLinks.indexOf(link)] + " " +
+                    Constants.arrow + " " + link + " site can't be reached");
+            } else {
+                response = res.status;
+                // Request to private repositories need autentication
+                if (response === 404 && link.indexOf(Constants.github) >= 0) {
+                    console.log(linkExternalFile[externalLinks.indexOf(link)] + " " +
+                        Constants.arrow + " " + link + " cannot be verified");
                 } else {
-                    response = res.status;
-                    // Request to private repositories need autentication
-                    if (response === 404 && link.indexOf(Constants.github) >= 0) {
-                        console.log(linkExternalFile[externalLinks.indexOf(link)] + " "
-                            + Constants.arrow + " " + link + " cannot be verified");
-                    } else {
-                        if (response === 404) {
-                            console.log(Constants.red, linkExternalFile[externalLinks.indexOf(link)] + " "
-                                + Constants.arrow + " " + link + " " + Constants.arrow + " " + response, Constants.white);
-                            resolve(false);
-                            return;
-                        }
+                    if (response === 404) {
+                        console.log(Constants.red, linkExternalFile[externalLinks.indexOf(link)] + " " +
+                            Constants.arrow + " " + link + " " + Constants.arrow + " " + response, Constants.white);
+                        resolve(false);
+                        return;
                     }
                 }
+            }
 
-                resolve(true);
-            },
-        ));
+            resolve(true);
+        }, ));
 }
 
 /** Recursively get the links from the AST and push them into an array,
@@ -152,7 +152,9 @@ export function fixLink(link: string) {
         return link.substring(0, link.indexOf(Constants.quote));
     } else if (link.indexOf(Constants.dQuote) > 0) {
         return link.substring(0, link.indexOf(Constants.dQuote));
-    } else { return link; }
+    } else {
+        return link;
+    }
 }
 /** The value of those links in the AST with type 'link' are getting here */
 
@@ -174,7 +176,9 @@ export function getImageValue(link: string) {
 /** Verify the links */
 export async function checkLinks(eLinks: string[]) {
 
-    if (eLinks.length === 0) { process.exit(1); }
+    if (eLinks.length === 0) {
+        process.exit(1);
+    }
     const code = await Promise.all(eLinks.map(sendRequest));
     return code.reduce((a, b) => a && b);
 }
@@ -191,16 +195,16 @@ export async function checkInternalLinks(Ilinks: string[], linkFile: string[], d
         if (Ilinks[i].indexOf(Constants.hash) > 0) {
             const str = (Ilinks[i].substring(0, Ilinks[i].indexOf(Constants.hash)));
             if (!(fs.existsSync(dir + str + adoc))) {
-                console.log(Constants.red, linkFile[links.indexOf(Ilinks[i])] + " "
-                    + Constants.arrow + dir + str + adoc + " False", Constants.white);
+                console.log(Constants.red, linkFile[links.indexOf(Ilinks[i])] + " " +
+                    Constants.arrow + dir + str + adoc + " False", Constants.white);
                 code = false;
             }
             // resource type
         } else {
             if (!(fs.existsSync(dir + Ilinks[i])) && !(fs.existsSync(dir + Ilinks[i] + Constants.adoc))) {
                 code = false;
-                console.log(Constants.red, linkFile[links.indexOf(Ilinks[i])] + " "
-                    + Constants.arrow + " " + dir + Ilinks[i] + " False", Constants.white);
+                console.log(Constants.red, linkFile[links.indexOf(Ilinks[i])] + " " +
+                    Constants.arrow + " " + dir + Ilinks[i] + " False", Constants.white);
 
             }
         }

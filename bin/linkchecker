@@ -41,9 +41,9 @@ function logError(err) {
 }
 
 function linkCheck() {
-    directory = process.argv[2]
+    const directory = argv._[0];
     try {
-        if (directory  === "--help") {
+        if (argv.help || argv.h || !directory) {
             console.log(HELP)
         } else {
             verify_links.linkChecker(directory)

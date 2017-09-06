@@ -20,34 +20,38 @@ const externalLinks = [];
  * getlinks to iterate for each one.
  * Glob allows you to searh inside a directory all the files with a certain extension, in this case 'asciidoc'
  */
-linkChecker(process.argv[2]);
 function linkChecker(dir) {
     const linkFile = [];
     const links = [];
     glob(dir + "*" + constants_1.default.adoc, (err, files) => __awaiter(this, void 0, void 0, function* () {
-        files.forEach((file) => {
-            const ast = remark().parse(fs.readFileSync(file, "utf-8"));
-            const childrens = ast.children;
-            childrens.forEach((child) => {
-                getLinks(child).forEach((link) => {
-                    if (link.indexOf(constants_1.default.http) >= 0 || link.indexOf(constants_1.default.https) >= 0) {
-                        if (!(externalLinks.indexOf(link) > 0)) {
-                            externalLinks.push(link);
-                            linkExternalFile.push(file);
+        if (files.length === 0) {
+            console.log("Directory not found or empty.");
+        }
+        else {
+            files.forEach((file) => {
+                const ast = remark().parse(fs.readFileSync(file, "utf-8"));
+                const childrens = ast.children;
+                childrens.forEach((child) => {
+                    getLinks(child).forEach((link) => {
+                        if (link.indexOf(constants_1.default.http) >= 0 || link.indexOf(constants_1.default.https) >= 0) {
+                            if (!(externalLinks.indexOf(link) > 0)) {
+                                externalLinks.push(link);
+                                linkExternalFile.push(file);
+                            }
                         }
-                    }
-                    else {
-                        if (!(links.indexOf(link) > 0)) {
-                            links.push(link);
-                            linkFile.push(file);
+                        else {
+                            if (!(links.indexOf(link) > 0)) {
+                                links.push(link);
+                                linkFile.push(file);
+                            }
                         }
-                    }
+                    });
                 });
             });
-        });
-        const code1 = yield checkLinks(externalLinks);
-        const code2 = yield checkInternalLinks(links, linkFile, dir);
-        exitCode(code1, code2);
+            const code1 = yield checkLinks(externalLinks);
+            const code2 = yield checkInternalLinks(links, linkFile, dir);
+            exitCode(code1, code2);
+        }
     }));
 }
 exports.linkChecker = linkChecker;
@@ -74,24 +78,22 @@ function sendRequest(link) {
         const req = link;
         let response;
         const code = true;
-        return new Promise((resolve, reject) => request.
-            head(req).
-            end((err, res) => {
+        return new Promise((resolve, reject) => request.head(req).end((err, res) => {
             if (res === undefined) {
-                console.log(linkExternalFile[externalLinks.indexOf(link)] + " "
-                    + constants_1.default.arrow + " " + link + " site can't be reached");
+                console.log(linkExternalFile[externalLinks.indexOf(link)] + " " +
+                    constants_1.default.arrow + " " + link + " site can't be reached");
             }
             else {
                 response = res.status;
                 // Request to private repositories need autentication
                 if (response === 404 && link.indexOf(constants_1.default.github) >= 0) {
-                    console.log(linkExternalFile[externalLinks.indexOf(link)] + " "
-                        + constants_1.default.arrow + " " + link + " cannot be verified");
+                    console.log(linkExternalFile[externalLinks.indexOf(link)] + " " +
+                        constants_1.default.arrow + " " + link + " cannot be verified");
                 }
                 else {
                     if (response === 404) {
-                        console.log(constants_1.default.red, linkExternalFile[externalLinks.indexOf(link)] + " "
-                            + constants_1.default.arrow + " " + link + " " + constants_1.default.arrow + " " + response, constants_1.default.white);
+                        console.log(constants_1.default.red, linkExternalFile[externalLinks.indexOf(link)] + " " +
+                            constants_1.default.arrow + " " + link + " " + constants_1.default.arrow + " " + response, constants_1.default.white);
                         resolve(false);
                         return;
                     }
@@ -162,7 +164,7 @@ function fixLink(link) {
 exports.fixLink = fixLink;
 /** The value of those links in the AST with type 'link' are getting here */
 function getLinkValue(link) {
-    return link;
+    return link.substring(link.indexOf(constants_1.default.tLink) + 5);
 }
 exports.getLinkValue = getLinkValue;
 function getImageValue(link) {
@@ -199,8 +201,8 @@ function checkInternalLinks(Ilinks, linkFile, dir) {
             if (Ilinks[i].indexOf(constants_1.default.hash) > 0) {
                 const str = (Ilinks[i].substring(0, Ilinks[i].indexOf(constants_1.default.hash)));
                 if (!(fs.existsSync(dir + str + adoc))) {
-                    console.log(constants_1.default.red, linkFile[links.indexOf(Ilinks[i])] + " "
-                        + constants_1.default.arrow + dir + str + adoc + " False", constants_1.default.white);
+                    console.log(constants_1.default.red, linkFile[links.indexOf(Ilinks[i])] + " " +
+                        constants_1.default.arrow + dir + str + adoc + " False", constants_1.default.white);
                     code = false;
                 }
                 // resource type
@@ -208,8 +210,8 @@ function checkInternalLinks(Ilinks, linkFile, dir) {
             else {
                 if (!(fs.existsSync(dir + Ilinks[i])) && !(fs.existsSync(dir + Ilinks[i] + constants_1.default.adoc))) {
                     code = false;
-                    console.log(constants_1.default.red, linkFile[links.indexOf(Ilinks[i])] + " "
-                        + constants_1.default.arrow + " " + dir + Ilinks[i] + " False", constants_1.default.white);
+                    console.log(constants_1.default.red, linkFile[links.indexOf(Ilinks[i])] + " " +
+                        constants_1.default.arrow + " " + dir + Ilinks[i] + " False", constants_1.default.white);
                 }
             }
         }
