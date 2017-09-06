@@ -28,7 +28,6 @@
     "@types/node": "^7.0.32",
     "@types/superagent": "^3.5.2",
     "chai": "^4.1.0",
-    "mocha": "^3.4.2",
     "ts-node": "^3.2.0",
     "typescript": "^2.4.1"
   },
@@ -39,8 +38,10 @@
   "dependencies": {
     "chalk": "^2.0.1",
     "glob": "^7.1.2",
+    "mocha": "^3.4.2",
     "remark": "^7.0.1",
-    "superagent": "^3.5.2"
+    "superagent": "^3.5.2",
+    "yargs": "^8.0.2"
   },
   "repository": {
     "type": "git",

@@ -11,28 +11,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 const glob = require("glob");
 const request = require("superagent");
-const enum_1 = require("./enum");
-let remark = require('remark');
-let directory;
-let links = [];
-let linkFile = [];
-let external_links = [];
-let linkExternalFile = [];
-/**Read each asciidoc of the directory where the wiki has been cloned and call the function    getlinks to iterate for each one.
-* glob allows you to searh inside a directory all the files with a certain extension, in this case 'asciidoc'
+const constants_1 = require("./constants");
+const remark = require("remark");
+const linkExternalFile = [];
+const externalLinks = [];
+/**
+ * Read each asciidoc of the directory where the wiki has been cloned and call the function
+ * getlinks to iterate for each one.
+ * Glob allows you to searh inside a directory all the files with a certain extension, in this case 'asciidoc'
  */
 function linkChecker(dir) {
-    directory = dir;
-    glob(directory + '*' + enum_1.default.adoc, function (err, files) {
-        return __awaiter(this, void 0, void 0, function* () {
-            files.forEach(function (file) {
-                let ast = remark().parse(fs.readFileSync(file, 'utf-8'));
-                let childrens = ast.children;
-                childrens.forEach(child => {
-                    getLinks(child).forEach(link => {
-                        if (link.indexOf(enum_1.default.http) >= 0 || link.indexOf(enum_1.default.https) >= 0) {
-                            if (!(external_links.indexOf(link) > 0)) {
-                                external_links.push(link);
+    const linkFile = [];
+    const links = [];
+    glob(dir + "*" + constants_1.default.adoc, (err, files) => __awaiter(this, void 0, void 0, function* () {
+        if (files.length === 0) {
+            console.log("Directory not found or empty.");
+        }
+        else {
+            files.forEach((file) => {
+                const ast = remark().parse(fs.readFileSync(file, "utf-8"));
+                const childrens = ast.children;
+                childrens.forEach((child) => {
+                    getLinks(child).forEach((link) => {
+                        if (link.indexOf(constants_1.default.http) >= 0 || link.indexOf(constants_1.default.https) >= 0) {
+                            if (!(externalLinks.indexOf(link) > 0)) {
+                                externalLinks.push(link);
                                 linkExternalFile.push(file);
                             }
                         }
@@ -45,47 +48,52 @@ function linkChecker(dir) {
                     });
                 });
             });
-            let code1 = yield checkLinks(external_links);
-            let code2 = yield checkInternalLinks(links);
+            const code1 = yield checkLinks(externalLinks);
+            const code2 = yield checkInternalLinks(links, linkFile, dir);
             exitCode(code1, code2);
-        });
-    });
+        }
+    }));
 }
 exports.linkChecker = linkChecker;
-/**Receives 2 codes(1 code for external links and 1 code for internal links, compare them and show the output*/
+/**
+ * Receives 2 codes(1 code for external links and 1 code for internal links, compare them and show the output
+ */
 function exitCode(code1, code2) {
     if (code1 && code2) {
-        console.log('Done: All links are correct');
+        console.log("Done: All links are correct");
         process.exit();
     }
     else {
-        console.log('DONE: Some link failed');
+        console.log("DONE: Some link failed");
         process.exit(1);
     }
 }
-/**Function to do a HEAD request for the external links returning the status
+exports.exitCode = exitCode;
+/**
+ * Function to do a HEAD request for the external links returning the status
  * returns code = true if status 200 or code = false if status 404
-*/
+ */
 function sendRequest(link) {
     return __awaiter(this, void 0, void 0, function* () {
-        let req = link;
+        const req = link;
         let response;
-        let code = true;
-        return new Promise((resolve, reject) => request.
-            head(req).
-            end(function (err, res) {
-            if (res == undefined) {
-                console.log(linkExternalFile[external_links.indexOf(link)] + " " + enum_1.default.arrow + " " + link + ' site cant be reached');
+        const code = true;
+        return new Promise((resolve, reject) => request.head(req).end((err, res) => {
+            if (res === undefined) {
+                console.log(linkExternalFile[externalLinks.indexOf(link)] + " " +
+                    constants_1.default.arrow + " " + link + " site can't be reached");
             }
             else {
                 response = res.status;
-                /**Request to private repositories need autentication */
-                if (response == 404 && link.indexOf(enum_1.default.github) >= 0) {
-                    console.log(linkExternalFile[external_links.indexOf(link)] + " " + enum_1.default.arrow + " " + link + ' cannot be verified');
+                // Request to private repositories need autentication
+                if (response === 404 && link.indexOf(constants_1.default.github) >= 0) {
+                    console.log(linkExternalFile[externalLinks.indexOf(link)] + " " +
+                        constants_1.default.arrow + " " + link + " cannot be verified");
                 }
                 else {
-                    if (response == 404) {
-                        console.log(enum_1.default.red, linkExternalFile[external_links.indexOf(link)] + " " + enum_1.default.arrow + " " + link + " " + enum_1.default.arrow + " " + response, enum_1.default.white);
+                    if (response === 404) {
+                        console.log(constants_1.default.red, linkExternalFile[externalLinks.indexOf(link)] + " " +
+                            constants_1.default.arrow + " " + link + " " + constants_1.default.arrow + " " + response, constants_1.default.white);
                         resolve(false);
                         return;
                     }
@@ -96,34 +104,36 @@ function sendRequest(link) {
     });
 }
 exports.sendRequest = sendRequest;
-/**Recursively get the links from the AST and push them into an array, there are 2 types of link(external and internal) and each one have one array */
+/** Recursively get the links from the AST and push them into an array,
+ * There are 2 types of link(external and internal) and each one have one array
+ */
 function getLinks(childOfChild) {
-    let links = [];
+    const links = [];
     if (childOfChild.children) {
-        let childrenNew = childOfChild.children;
-        childrenNew.forEach(subChild => {
+        const childrenNew = childOfChild.children;
+        childrenNew.forEach((subChild) => {
             if (subChild.type) {
                 switch (subChild.type) {
-                    case 'link':
-                        if (subChild.url.indexOf(enum_1.default.localhost) >= 0) {
+                    case "link":
+                        if (subChild.url.indexOf(constants_1.default.localhost) >= 0) {
                             break;
                         }
                         links.push(fixLink(subChild.url));
                         break;
-                    case 'text':
-                        /**there are some special characters that need to be checked */
-                        if (subChild.value.endsWith(enum_1.default.d_plus)) {
+                    case "text":
+                        // there are some special characters that need to be checked
+                        if (subChild.value.endsWith(constants_1.default.dPlus)) {
                             break;
                         }
                         let str = subChild.value;
-                        if (str.indexOf(enum_1.default.T_link) >= 0) {
-                            if (str.startsWith(enum_1.default.d_slash) == false) {
+                        if (str.indexOf(constants_1.default.tLink) >= 0) {
+                            if (str.startsWith(constants_1.default.dSlash) === false) {
                                 links.push(getLinkValue(str));
                             }
                         }
-                        else if ((str.indexOf(enum_1.default.image) >= 0) && (str.startsWith(enum_1.default.d_slash) == false)) {
-                            if (str.endsWith(enum_1.default.brackets)) {
-                                str = str.substring(0, str.lastIndexOf(enum_1.default.bracket));
+                        else if ((str.indexOf(constants_1.default.image) >= 0) && (str.startsWith(constants_1.default.dSlash) === false)) {
+                            if (str.endsWith(constants_1.default.brackets)) {
+                                str = str.substring(0, str.lastIndexOf(constants_1.default.bracket));
                             }
                             links.push(getImageValue(str));
                         }
@@ -135,67 +145,77 @@ function getLinks(childOfChild) {
     }
     return links;
 }
-/**There are some links wich end with some extra character and need to be fixed */
+exports.getLinks = getLinks;
+/** There are some links wich end with some extra character and need to be fixed */
 function fixLink(link) {
-    if (link.indexOf(enum_1.default.bracket) >= 0) {
-        return link.substring(0, link.indexOf(enum_1.default.bracket));
+    if (link.indexOf(constants_1.default.bracket) >= 0) {
+        return link.substring(0, link.indexOf(constants_1.default.bracket));
     }
-    else if (link.indexOf(enum_1.default.quote) > 0) {
-        return link.substring(0, link.indexOf(enum_1.default.quote));
+    else if (link.indexOf(constants_1.default.quote) > 0) {
+        return link.substring(0, link.indexOf(constants_1.default.quote));
     }
-    else if (link.indexOf(enum_1.default.d_quote) > 0) {
-        return link.substring(0, link.indexOf(enum_1.default.d_quote));
+    else if (link.indexOf(constants_1.default.dQuote) > 0) {
+        return link.substring(0, link.indexOf(constants_1.default.dQuote));
     }
-    else
+    else {
         return link;
+    }
 }
 exports.fixLink = fixLink;
-/**The value of those links in the AST with type 'link' are getting here */
+/** The value of those links in the AST with type 'link' are getting here */
 function getLinkValue(link) {
-    return link.substring(link.indexOf(enum_1.default.T_link) + 5);
+    return link.substring(link.indexOf(constants_1.default.tLink) + 5);
 }
 exports.getLinkValue = getLinkValue;
 function getImageValue(link) {
-    if (link.indexOf(enum_1.default.images) >= 0) {
-        return link.substring(link.indexOf(enum_1.default.images));
+    if (link.indexOf(constants_1.default.images) >= 0) {
+        return link.substring(link.indexOf(constants_1.default.images));
     }
-    else if ((link.indexOf(enum_1.default.http) >= 0) || (link.indexOf(enum_1.default.https) >= 0)) {
-        return link.substring(link.indexOf('http'));
+    else if ((link.indexOf(constants_1.default.http) >= 0) || (link.indexOf(constants_1.default.https) >= 0)) {
+        return link.substring(link.indexOf("http"));
     }
-    else
-        return link.substring(link.indexOf(enum_1.default.d_colon) + 2);
+    else {
+        return link.substring(link.indexOf(constants_1.default.dColon) + 2);
+    }
 }
 exports.getImageValue = getImageValue;
-/**Verify the links */
+/** Verify the links */
 function checkLinks(eLinks) {
     return __awaiter(this, void 0, void 0, function* () {
-        if (eLinks.length === 0)
+        if (eLinks.length === 0) {
             process.exit(1);
-        let code = yield Promise.all(eLinks.map(sendRequest));
+        }
+        const code = yield Promise.all(eLinks.map(sendRequest));
         return code.reduce((a, b) => a && b);
     });
 }
-/**There are 2 types of InternalLinks, anchor types(#) and resource types(/) */
-function checkInternalLinks(Ilinks) {
+exports.checkLinks = checkLinks;
+/** There are 2 types of InternalLinks, anchor types(#) and resource types(/) */
+function checkInternalLinks(Ilinks, linkFile, dir) {
     return __awaiter(this, void 0, void 0, function* () {
-        let adoc = enum_1.default.adoc;
+        const links = Ilinks;
+        const adoc = constants_1.default.adoc;
         let code = true;
         for (let i = 0; i < Ilinks.length; i++) {
-            //anchor type
-            if (Ilinks[i].indexOf(enum_1.default.hash) > 0) {
-                let str = (Ilinks[i].substring(0, Ilinks[i].indexOf(enum_1.default.hash)));
-                if (!(fs.existsSync(directory + str + adoc))) {
-                    console.log(enum_1.default.red, linkFile[links.indexOf(Ilinks[i])] + " " + enum_1.default.arrow + directory + str + adoc + ' False', enum_1.default.white);
+            // anchor type
+            if (Ilinks[i].indexOf(constants_1.default.hash) > 0) {
+                const str = (Ilinks[i].substring(0, Ilinks[i].indexOf(constants_1.default.hash)));
+                if (!(fs.existsSync(dir + str + adoc))) {
+                    console.log(constants_1.default.red, linkFile[links.indexOf(Ilinks[i])] + " " +
+                        constants_1.default.arrow + dir + str + adoc + " False", constants_1.default.white);
                     code = false;
                 }
+                // resource type
             }
             else {
-                if (!(fs.existsSync(directory + Ilinks[i])) && !(fs.existsSync(directory + Ilinks[i] + enum_1.default.adoc))) {
+                if (!(fs.existsSync(dir + Ilinks[i])) && !(fs.existsSync(dir + Ilinks[i] + constants_1.default.adoc))) {
                     code = false;
-                    console.log(enum_1.default.red, linkFile[links.indexOf(Ilinks[i])] + " ---> " + directory + Ilinks[i] + ' False', enum_1.default.white);
+                    console.log(constants_1.default.red, linkFile[links.indexOf(Ilinks[i])] + " " +
+                        constants_1.default.arrow + " " + dir + Ilinks[i] + " False", constants_1.default.white);
                 }
             }
         }
         return code;
     });
 }
+exports.checkInternalLinks = checkInternalLinks;
