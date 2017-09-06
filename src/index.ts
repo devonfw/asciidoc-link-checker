@@ -19,7 +19,7 @@ export function linkChecker(dir: string) {
     const linkFile: string[] = [];
     const links: string[] = [];
 
-    glob(dir + "*" + Constants.adoc, async(err: any, files: any) => {
+    glob(dir + "*" + Constants.adoc, async (err: any, files: any) => {
         if (files.length === 0) {
             console.log("Directory not found or empty.");
         } else {
@@ -97,7 +97,7 @@ export async function sendRequest(link: string): Promise < boolean > {
             }
 
             resolve(true);
-        }, ));
+        }));
 }
 
 /** Recursively get the links from the AST and push them into an array,

@@ -22,5 +22,4 @@ Constants.dQuote = '"';
 Constants.hash = "#";
 Constants.dPlus = "++";
 Constants.dColon = "::";
-exports.Constants = Constants;
 exports.default = Constants;

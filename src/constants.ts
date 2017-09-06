@@ -1,5 +1,5 @@
 // constants
-export class Constants {
+class Constants {
     public static readonly adoc: string = ".asciidoc";
     public static readonly images: string = "images";
     public static readonly image: string = "image::";
