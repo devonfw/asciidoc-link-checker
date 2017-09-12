@@ -1,4 +1,7 @@
 # Asciidoc-link-checker
+
+[![build status](https://travis-ci.org/oasp/asciidoc-link-checker.svg?branch=master)](https://travis-ci.org/oasp/asciidoc-link-checker)
+
 Tool to check each link of each asciidoc inside a wiki of a gitHub repository
 # How to use
 
