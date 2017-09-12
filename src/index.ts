@@ -187,21 +187,25 @@ export async function checkLinks(eLinks: string[]) {
 export async function checkInternalLinks(Ilinks: string[], linkFile: string[], dir: string) {
 
     const links = Ilinks;
-    const adoc = Constants.adoc;
+    const asciidoc = ".asciidoc";
+    const adoc = ".adoc";
     let code = true;
 
     for (let i = 0; i < Ilinks.length; i++) {
         // anchor type
         if (Ilinks[i].indexOf(Constants.hash) > 0) {
             const str = (Ilinks[i].substring(0, Ilinks[i].indexOf(Constants.hash)));
-            if (!(fs.existsSync(dir + str + adoc))) {
+            if (!(fs.existsSync(dir + str + asciidoc)) &&
+                !(fs.existsSync(dir + str + adoc))) {
                 console.log(Constants.red, linkFile[links.indexOf(Ilinks[i])] + " " +
                     Constants.arrow + dir + str + adoc + " False", Constants.white);
                 code = false;
             }
             // resource type
         } else {
-            if (!(fs.existsSync(dir + Ilinks[i])) && !(fs.existsSync(dir + Ilinks[i] + Constants.adoc))) {
+            if (!(fs.existsSync(dir + Ilinks[i])) &&
+                !(fs.existsSync(dir + Ilinks[i] + asciidoc)) &&
+                !(fs.existsSync(dir + Ilinks[i] + adoc))) {
                 code = false;
                 console.log(Constants.red, linkFile[links.indexOf(Ilinks[i])] + " " +
                     Constants.arrow + " " + dir + Ilinks[i] + " False", Constants.white);

@@ -50,5 +50,20 @@
   "bugs": {
     "url": "https://github.com/oasp/asciidoc-link-checker/issues"
   },
-  "homepage": "https://github.com/oasp/asciidoc-link-checker"
+  "homepage": "https://github.com/oasp/asciidoc-link-checker",
+  "resolutions": {
+    "glob": "7.1.2",
+    "@types/node": "8.0.12",
+    "supports-color": "4.2.0",
+    "has-flag": "2.0.0",
+    "debug": "2.6.8",
+    "diff": "3.3.0",
+    "ms": "2.0.0",
+    "minimist": "1.2.0",
+    "string-width": "2.1.1",
+    "strip-ansi": "4.0.0",
+    "is-fullwidth-code-point": "2.0.0",
+    "ansi-regex": "3.0.0",
+    "type-detect": "4.0.3"
+  }
 }
