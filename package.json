@@ -1,6 +1,6 @@
 {
   "name": "@oasp/asciidoc-link-checker",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "description": "Tool to check each link of each asciidoc",
   "author": {
     "name": "Capgemini",
@@ -14,7 +14,7 @@
     "build": "tsc",
     "test": "mocha --opts mocha.opts",
     "dev": "tsc -w",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "release": "np"
   },
   "keywords": [

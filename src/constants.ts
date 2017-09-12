@@ -1,6 +1,6 @@
 // constants
 class Constants {
-    public static readonly adoc: string = ".asciidoc";
+    public static readonly adoc: string = ".{asciidoc,adoc}";
     public static readonly images: string = "images";
     public static readonly image: string = "image::";
     public static readonly localhost: string = "http://localhost";
