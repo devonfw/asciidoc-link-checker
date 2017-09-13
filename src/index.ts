@@ -176,14 +176,6 @@ export function getImageValue(link: string) {
         link = link.substring(link.indexOf(Constants.image) + Constants.image.length);
     }
 
-    if (link.indexOf(Constants.https) >= 0) {
-        link = link.substring(link.indexOf(Constants.https) + Constants.https.length + 2);
-    }
-
-    if (link.indexOf(Constants.http) >= 0) {
-        link = link.substring(link.indexOf(Constants.http) + Constants.http.length + 2);
-    }
-
     return link;
 }
 
