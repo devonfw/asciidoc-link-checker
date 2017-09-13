@@ -8,11 +8,10 @@ class Constants {
     public static readonly http: string = "http:";
     public static readonly https: string = "https:";
     public static readonly github: string = "https://github.com";
-    public static readonly red: string = "\x1b[31m";
-    public static readonly white: string = "\x1b[0m";
     public static readonly arrow: string = "--->";
     public static readonly dSlash: string = "//";
     public static readonly bracket: string = "[";
+    public static readonly parenthesis: string = "(";
     public static readonly brackets: string = "[]";
     public static readonly quote: string = "'";
     public static readonly dQuote: string = '"';

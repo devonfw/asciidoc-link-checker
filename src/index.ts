@@ -4,6 +4,7 @@ import * as request from "superagent";
 import Constants from "./constants";
 
 const remark = require("remark");
+const chalk = require("chalk");
 
 const linkExternalFile: string[] = [];
 const externalLinks: string[] = [];
@@ -21,7 +22,7 @@ export function linkChecker(dir: string) {
 
     glob(dir + "*" + Constants.adoc, async (err: any, files: any) => {
         if (files.length === 0) {
-            console.log("Directory not found or empty.");
+            console.log(chalk.red("ERROR: Directory not found or empty."));
         } else {
             files.forEach(
                 (file: any) => {
@@ -54,14 +55,13 @@ export function linkChecker(dir: string) {
 /**
  * Receives 2 codes(1 code for external links and 1 code for internal links, compare them and show the output
  */
-
 export function exitCode(code1: boolean, code2: boolean) {
 
     if (code1 && code2) {
-        console.log("Done: All links are correct");
+        console.log(chalk.green("\nDONE: All links are correct."));
         process.exit();
     } else {
-        console.log("DONE: Some link failed");
+        console.log(chalk.red("\nDONE: Some links failed."));
         process.exit(1);
     }
 
@@ -78,18 +78,18 @@ export async function sendRequest(link: string): Promise < boolean > {
     return new Promise < boolean > ((resolve, reject) =>
         request.head(req).end((err: any, res: request.Response) => {
             if (res === undefined) {
-                console.log(linkExternalFile[externalLinks.indexOf(link)] + " " +
-                    Constants.arrow + " " + link + " site can't be reached");
+                console.log(chalk.yellow("WARNING: ") + linkExternalFile[externalLinks.indexOf(link)] + " " +
+                    Constants.arrow + " " + link + " " + chalk.blue(Constants.arrow + " site cannot be reached"));
             } else {
                 response = res.status;
                 // Request to private repositories need autentication
                 if (response === 404 && link.indexOf(Constants.github) >= 0) {
-                    console.log(linkExternalFile[externalLinks.indexOf(link)] + " " +
-                        Constants.arrow + " " + link + " cannot be verified");
+                    console.log(chalk.yellow("WARNING: ") + linkExternalFile[externalLinks.indexOf(link)] + " " +
+                        Constants.arrow + " " + link + " " + chalk.blue(Constants.arrow + " cannot be verified"));
                 } else {
                     if (response === 404) {
-                        console.log(Constants.red, linkExternalFile[externalLinks.indexOf(link)] + " " +
-                            Constants.arrow + " " + link + " " + Constants.arrow + " " + response, Constants.white);
+                        console.log(chalk.red("ERROR: ") + linkExternalFile[externalLinks.indexOf(link)] + " " +
+                            Constants.arrow + " " + link + " " + chalk.red(Constants.arrow + " " + response));
                         resolve(false);
                         return;
                     }
@@ -100,10 +100,10 @@ export async function sendRequest(link: string): Promise < boolean > {
         }));
 }
 
-/** Recursively get the links from the AST and push them into an array,
+/**
+ * Recursively get the links from the AST and push them into an array,
  * There are 2 types of link(external and internal) and each one have one array
  */
-
 export function getLinks(childOfChild: any): string[] {
     const links: string[] = [];
     if (childOfChild.children) {
@@ -115,24 +115,30 @@ export function getLinks(childOfChild: any): string[] {
                         if (subChild.url.indexOf(Constants.localhost) >= 0) {
                             break;
                         }
+                        if (subChild.url.indexOf(Constants.http) < 0 &&
+                            subChild.url.indexOf(Constants.https) < 0) {
+                            break;
+                        }
                         links.push(fixLink(subChild.url));
                         break;
                     case "text":
                         // there are some special characters that need to be checked
-                        if ((subChild.value as string).endsWith(Constants.dPlus)) {
-                            break;
-                        }
-                        let str = subChild.value;
-                        if (str.indexOf(Constants.tLink) >= 0) {
-                            if (str.startsWith(Constants.dSlash) === false) {
-                                links.push(getLinkValue(str));
+                        const str = subChild.value.split("\n");
+                        str.forEach((item: string) => {
+                            if ((item as string).endsWith(Constants.dPlus)) {
+                                return;
                             }
-                        } else if ((str.indexOf(Constants.image) >= 0) && (str.startsWith(Constants.dSlash) === false)) {
-                            if (str.endsWith(Constants.brackets)) {
-                                str = str.substring(0, str.lastIndexOf(Constants.bracket));
+                            if (item.indexOf(Constants.tLink) >= 0) {
+                                if (!item.startsWith(Constants.dSlash)) {
+                                    links.push(getLinkValue(item));
+                                }
+                            } else if ((item.indexOf(Constants.image) >= 0) && (item.startsWith(Constants.dSlash) === false)) {
+                                if (item.endsWith(Constants.brackets)) {
+                                    item = item.substring(0, item.lastIndexOf(Constants.bracket));
+                                }
+                                links.push(getImageValue(item));
                             }
-                            links.push(getImageValue(str));
-                        }
+                        });
                     default:
                         return getLinks(subChild);
                 }
@@ -142,12 +148,12 @@ export function getLinks(childOfChild: any): string[] {
     return links;
 }
 
-/** There are some links wich end with some extra character and need to be fixed */
-
+/**
+ * There are some links wich end with some extra character and need to be fixed
+ */
 export function fixLink(link: string) {
     if (link.indexOf(Constants.bracket) >= 0) {
         return link.substring(0, link.indexOf(Constants.bracket));
-
     } else if (link.indexOf(Constants.quote) > 0) {
         return link.substring(0, link.indexOf(Constants.quote));
     } else if (link.indexOf(Constants.dQuote) > 0) {
@@ -156,24 +162,34 @@ export function fixLink(link: string) {
         return link;
     }
 }
-/** The value of those links in the AST with type 'link' are getting here */
 
+/**
+ * The value of those links in the AST with type 'link' are getting here
+ */
 export function getLinkValue(link: string) {
-
-    return link.substring(link.indexOf(Constants.tLink) + 5);
+    const ref = link.split("[]")[0];
+    return ref.substring(link.indexOf(Constants.tLink) + 5);
 }
 
 export function getImageValue(link: string) {
-    if (link.indexOf(Constants.images) >= 0) {
-        return link.substring(link.indexOf(Constants.images));
-    } else if ((link.indexOf(Constants.http) >= 0) || (link.indexOf(Constants.https) >= 0)) {
-        return link.substring(link.indexOf("http"));
-    } else {
-        return link.substring(link.indexOf(Constants.dColon) + 2);
+    if (link.indexOf(Constants.image) >= 0) {
+        link = link.substring(link.indexOf(Constants.image) + Constants.image.length);
     }
+
+    if (link.indexOf(Constants.https) >= 0) {
+        link = link.substring(link.indexOf(Constants.https) + Constants.https.length + 2);
+    }
+
+    if (link.indexOf(Constants.http) >= 0) {
+        link = link.substring(link.indexOf(Constants.http) + Constants.http.length + 2);
+    }
+
+    return link;
 }
 
-/** Verify the links */
+/**
+ * Verify the links
+ */
 export async function checkLinks(eLinks: string[]) {
 
     if (eLinks.length === 0) {
@@ -183,7 +199,9 @@ export async function checkLinks(eLinks: string[]) {
     return code.reduce((a, b) => a && b);
 }
 
-/** There are 2 types of InternalLinks, anchor types(#) and resource types(/) */
+/**
+ * There are 2 types of InternalLinks, anchor types(#) and resource types(/)
+ */
 export async function checkInternalLinks(Ilinks: string[], linkFile: string[], dir: string) {
 
     const links = Ilinks;
@@ -197,8 +215,8 @@ export async function checkInternalLinks(Ilinks: string[], linkFile: string[], d
             const str = (Ilinks[i].substring(0, Ilinks[i].indexOf(Constants.hash)));
             if (!(fs.existsSync(dir + str + asciidoc)) &&
                 !(fs.existsSync(dir + str + adoc))) {
-                console.log(Constants.red, linkFile[links.indexOf(Ilinks[i])] + " " +
-                    Constants.arrow + dir + str + adoc + " False", Constants.white);
+                console.log(chalk.red("ERROR: ") + linkFile[links.indexOf(Ilinks[i])] + " " +
+                    Constants.arrow + dir + str + adoc + chalk.red(" " + Constants.arrow + " internal link not found"));
                 code = false;
             }
             // resource type
@@ -207,8 +225,8 @@ export async function checkInternalLinks(Ilinks: string[], linkFile: string[], d
                 !(fs.existsSync(dir + Ilinks[i] + asciidoc)) &&
                 !(fs.existsSync(dir + Ilinks[i] + adoc))) {
                 code = false;
-                console.log(Constants.red, linkFile[links.indexOf(Ilinks[i])] + " " +
-                    Constants.arrow + " " + dir + Ilinks[i] + " False", Constants.white);
+                console.log(chalk.red("ERROR: ") + linkFile[links.indexOf(Ilinks[i])] + " " +
+                    Constants.arrow + " " + dir + Ilinks[i] + chalk.red(" " + Constants.arrow + " internal link not found"));
 
             }
         }
