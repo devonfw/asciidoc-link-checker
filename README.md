@@ -10,7 +10,7 @@ Tool to check each link of each asciidoc inside a wiki of a gitHub repository
 
     `nmp install`
 
-4.  In order to make releases you need to install globally `np`
+4.  (OPTIONAL) In order to make your own **asciidoc-link-checker** releases you need to install globally `np`
 
     `npm install -g np`
 
