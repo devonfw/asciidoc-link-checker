@@ -6,13 +6,16 @@ Tool to check each link of each asciidoc inside a wiki of a gitHub repository
 
 # How to use
 
-1.  Clone this repository into a local folder on your computer
-2.  Open the console and move to that folder
+1.  Clone this repository into a local folder on your computer or install the tool globally:
+
+    `npm install -g @oasp/asciidoc-link-checker`
+
+2.  Open the console and move to that folder.
 3.  Install the dependencies:
 
     `npm install`
 
-4.  (OPTIONAL) In order to make your own **asciidoc-link-checker** releases you need to install globally `np`
+4.  (OPTIONAL) In order to make your own **asciidoc-link-checker** releases you need to install globally `np`:
 
     `npm install -g np`
 
