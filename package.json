@@ -1,6 +1,6 @@
 {
   "name": "@oasp/asciidoc-link-checker",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Tool to check each link of each asciidoc",
   "author": {
     "name": "Capgemini",
