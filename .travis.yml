@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - "node"
+  - "lts/*"
+env:
+  - INSTALL_CMD=yarn
+  - INSTALL_CMD=npm
+cache:
+  directories:
+    - "node_modules"
+install:
+  - $INSTALL_CMD install
