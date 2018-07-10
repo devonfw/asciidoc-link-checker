@@ -1,6 +1,6 @@
 {
   "name": "@oasp/asciidoc-link-checker",
-  "version": "1.0.0",
+  "version": "1.2.1",
   "description": "Tool to check each link of each asciidoc",
   "author": {
     "name": "Capgemini",
@@ -14,7 +14,7 @@
     "build": "tsc",
     "test": "mocha --opts mocha.opts",
     "dev": "tsc -w",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "release": "np"
   },
   "keywords": [
@@ -28,7 +28,6 @@
     "@types/node": "^7.0.32",
     "@types/superagent": "^3.5.2",
     "chai": "^4.1.0",
-    "mocha": "^3.4.2",
     "ts-node": "^3.2.0",
     "typescript": "^2.4.1"
   },
@@ -39,8 +38,10 @@
   "dependencies": {
     "chalk": "^2.0.1",
     "glob": "^7.1.2",
+    "mocha": "^3.4.2",
     "remark": "^7.0.1",
-    "superagent": "^3.5.2"
+    "superagent": "^3.5.2",
+    "yargs": "^8.0.2"
   },
   "repository": {
     "type": "git",
@@ -49,5 +50,20 @@
   "bugs": {
     "url": "https://github.com/oasp/asciidoc-link-checker/issues"
   },
-  "homepage": "https://github.com/oasp/asciidoc-link-checker"
+  "homepage": "https://github.com/oasp/asciidoc-link-checker",
+  "resolutions": {
+    "glob": "7.1.2",
+    "@types/node": "8.0.12",
+    "supports-color": "4.2.0",
+    "has-flag": "2.0.0",
+    "debug": "2.6.8",
+    "diff": "3.3.0",
+    "ms": "2.0.0",
+    "minimist": "1.2.0",
+    "string-width": "2.1.1",
+    "strip-ansi": "4.0.0",
+    "is-fullwidth-code-point": "2.0.0",
+    "ansi-regex": "3.0.0",
+    "type-detect": "4.0.3"
+  }
 }
