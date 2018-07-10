@@ -189,6 +189,7 @@ function checkInternalLinks(Ilinks) {
                     code = false;
                 }
             }
+            //resource type
             else {
                 if (!(fs.existsSync(directory + Ilinks[i])) && !(fs.existsSync(directory + Ilinks[i] + enum_1.default.adoc))) {
                     code = false;
