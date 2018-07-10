@@ -14,7 +14,7 @@
     "build": "tsc",
     "test": "mocha --opts mocha.opts",
     "dev": "tsc -w",
-    "prepublishOnly": "npm run build",
+    "prepare": "npm run build",
     "release": "np"
   },
   "keywords": [
