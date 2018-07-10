@@ -3,6 +3,7 @@ test/
 src/
 mocha.opts
 tsconfig.json
+tslint.json
 package-lock.json
+yarn.lock
 build/**/*.js.map
-futureWiki.md
