@@ -10,5 +10,5 @@ jobs:
         uses: actions/setup-node@v1
       - name: Install dependencies with yarn
         run: npm install
-      - name: Test
-        run: npm test
+#      - name: Test
+#        run: npm test
