@@ -9,6 +9,6 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v1
       - name: Install dependencies with yarn
-        run: yarn install
+        run: npm install
       - name: Test
-        run: yarn test
+        run: npm test
