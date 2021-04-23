@@ -65,7 +65,7 @@ describe("sendRequest  function", () => {
 
 describe("sendRequest  function", () => {
     it("should return false", (done) => {
-        const link = "http://dilbert.com/404";
+        const link = "https://dilbert.com/404";
         sendRequest(link).then((res) => {
             try {
                 expect(res).to.be.false;
