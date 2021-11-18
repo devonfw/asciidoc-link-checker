@@ -45,12 +45,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/oasp/asciidoc-link-checker.git"
+    "url": "git+https://github.com/devonfw/asciidoc-link-checker.git"
   },
   "bugs": {
-    "url": "https://github.com/oasp/asciidoc-link-checker/issues"
+    "url": "https://github.com/devonfw/asciidoc-link-checker/issues"
   },
-  "homepage": "https://github.com/oasp/asciidoc-link-checker",
+  "homepage": "https://github.com/devonfw/asciidoc-link-checker",
   "resolutions": {
     "glob": "7.1.2",
     "@types/node": "8.0.12",
