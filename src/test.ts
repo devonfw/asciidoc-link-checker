@@ -3,6 +3,7 @@ import "mocha";
 import { getLinks, fixLink, getImageValue, getLinkValue } from "./parser";
 import { sendRequest } from "./external_link_checker";
 import { Link } from "./model";
+import { checkInternalLinks } from "./internal_link_checker";
 
 describe("fixLink function", () => {
     it("should return true", () => {
@@ -81,23 +82,23 @@ describe("sendRequest  function", () => {
 
 describe("getLinks  function", () => {
     it("should all recursively included links", (done) => {
-        let astChild: any = {
+        const astChild: any = {
             type: "paragraph",
             children: [
                 {
                     type: "link",
                     url: "http://example.com"
                 },
-                { 
+                {
                     type: "list",
                     children: [
                         {
                             type: "text",
-                            value: " link:internal_dir/test.adoc" 
+                            value: " link:internal_dir/test.adoc"
                         },
                         {
                             type: "text",
-                            value: " link:internal_dir/test2.adoc" 
+                            value: " link:internal_dir/test2.adoc"
                         }
                     ]
                 },
@@ -108,5 +109,25 @@ describe("getLinks  function", () => {
         const links = getLinks(astChild);
         expect(links).to.have.members(["http://example.com", "internal_dir/test.adoc", "internal_dir/test2.adoc"]);
         done();
+    });
+});
+
+describe("checkInternalLinks function", () => {
+    it("should check all links based on HTML extension", (done) => {
+        const links = [new Link("subdir/sub_article.html","test_wiki/html_based/index.adoc")
+            , new Link("subdir/sub_article.adoc","test_wiki/html_based/index.adoc")];
+        checkInternalLinks(links, true).then(result => {
+            expect(result.totalNo).to.equal(2);
+            expect(result.invalidNo).to.equal(1);
+            done();
+        }).catch(err => done(err));
+    });
+    it("should check report errors for HTML extension without passing true", (done) => {
+        const links = [new Link("subdir/sub_article.html","test_wiki/html_based/index.adoc")];
+        checkInternalLinks(links, false).then(result => {
+            expect(result.totalNo).to.equal(1);
+            expect(result.invalidNo).to.equal(1);
+            done();
+        }).catch(err => done(err));
     });
 });

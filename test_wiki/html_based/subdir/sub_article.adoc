@@ -1,0 +1,4 @@
+This is an article with an external link
+
+* link:http://google.com[]
+* link:http://microsoft.com[]
