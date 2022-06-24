@@ -62,7 +62,7 @@ export function parseFileForLinks(file: string, internalLinks: Link[], externalL
                             }
                         });
                     default:
-                        var subLinks = getLinks(subChild);
+                        const subLinks = getLinks(subChild);
                         links = links.concat(subLinks);
                 }
             }

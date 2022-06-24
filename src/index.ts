@@ -44,7 +44,7 @@ export function exit(externalResult: LinkCheckResult, internalResult: LinkCheckR
     console.log("\nValidation result");
     logResult("External links: ", externalResult);
     logResult("Internal links: ", internalResult);
-    if (externalResult.invalidNo + internalResult.invalidNo == 0) {
+    if (externalResult.invalidNo + internalResult.invalidNo === 0) {
         console.log(chalk.green("\nDONE: All links are correct."));
         process.exit();
     } else {

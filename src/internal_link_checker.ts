@@ -14,19 +14,19 @@ export async function checkInternalLinks(internalLinks: Link[], enforceInternalH
     for (let i = 0; i < internalLinks.length; i++) {
         const link = internalLinks[i];
         const hashIndex = link.value.indexOf(Constants.hash);
-        const linkValue = hashIndex > 0 
+        const linkValue = hashIndex > 0;
             ? (link.value.substring(0, hashIndex))
             : link.value;
         const sourceFileInfo = path.parse(link.sourceFile);
         const sourceFileDir = sourceFileInfo.dir + "/";
-        
+
         if (!existsInternalFile(sourceFileDir, linkValue, enforceInternalHtmlLinks)) {
             invalidLinks++;
             console.log(chalk.red("ERROR: ") + link.sourceFile + " " +
                 Constants.arrow + " " + sourceFileDir + linkValue + chalk.red(" " + Constants.arrow + " internal link not found"));
 
         }
-        
+
     }
     return new LinkCheckResult(internalLinks.length, invalidLinks);
 }
@@ -39,7 +39,7 @@ function existsInternalFile(sourceFileDir: string, link: string, enforceInternal
         // Taking HTML away so subsequent check will succeed
         link = link.replace(Constants.eHtml, "");
     }
-    return (fs.existsSync(sourceFileDir + link)) || 
+    return (fs.existsSync(sourceFileDir + link)) ||
         (fs.existsSync(sourceFileDir + link + Constants.eAsciidoc)) ||
         (fs.existsSync(sourceFileDir + link + Constants.eAdoc));
 }
