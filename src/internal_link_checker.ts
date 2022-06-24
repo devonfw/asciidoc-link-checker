@@ -14,7 +14,7 @@ export async function checkInternalLinks(internalLinks: Link[], enforceInternalH
     for (let i = 0; i < internalLinks.length; i++) {
         const link = internalLinks[i];
         const hashIndex = link.value.indexOf(Constants.hash);
-        const linkValue = hashIndex > 0;
+        const linkValue = hashIndex > 0
             ? (link.value.substring(0, hashIndex))
             : link.value;
         const sourceFileInfo = path.parse(link.sourceFile);
