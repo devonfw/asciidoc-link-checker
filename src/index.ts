@@ -17,15 +17,17 @@ const externalLinks: string[] = [];
 
 export function linkChecker(dir: string) {
 
+    console.log(chalk.green("INFO: Checking dir: " + dir));
     const linkFile: string[] = [];
     const links: string[] = [];
 
-    glob(dir + "*" + Constants.adoc, async (err: any, files: any) => {
+    glob(dir + "**/*" + Constants.adoc, async (err: any, files: any) => {
         if (files.length === 0) {
             console.log(chalk.red("ERROR: Directory not found or empty."));
         } else {
             files.forEach(
                 (file: any) => {
+                    console.log(chalk.green("INFO: Checking file: " + file));
                     const ast = remark().parse(fs.readFileSync(file, "utf-8"));
                     const childrens: any[] = ast.children;
                     childrens.forEach((child) => {
@@ -105,7 +107,7 @@ export async function sendRequest(link: string): Promise < boolean > {
  * There are 2 types of link(external and internal) and each one have one array
  */
 export function getLinks(childOfChild: any): string[] {
-    const links: string[] = [];
+    let links: string[] = [];
     if (childOfChild.children) {
         const childrenNew: any[] = childOfChild.children;
         childrenNew.forEach((subChild) => {
@@ -140,7 +142,8 @@ export function getLinks(childOfChild: any): string[] {
                             }
                         });
                     default:
-                        return getLinks(subChild);
+                        var subLinks = getLinks(subChild);
+                        links = links.concat(subLinks);
                 }
             }
         });

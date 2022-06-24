@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import "mocha";
-import { checkLinks, fixLink, getImageValue, getLinkValue, sendRequest } from "./index";
+import { getLinks, fixLink, getImageValue, getLinkValue, sendRequest } from "./index";
 
 describe("fixLink function", () => {
     it("should return true", () => {
@@ -77,5 +77,37 @@ describe("sendRequest  function", () => {
             done(err);
         });
 
+    });
+});
+
+describe("getLinks  function", () => {
+    it("should all recursively included links", (done) => {
+        let astChild: any = {
+            type: "paragraph",
+            children: [
+                {
+                    type: "link",
+                    url: "http://example.com"
+                },
+                { 
+                    type: "list",
+                    children: [
+                        {
+                            type: "text",
+                            value: " link:internal_dir/test.adoc" 
+                        },
+                        {
+                            type: "text",
+                            value: " link:internal_dir/test2.adoc" 
+                        }
+                    ]
+                },
+            ]
+
+        };
+
+        const links = getLinks(astChild);
+        expect(links).to.have.members(["http://example.com", "internal_dir/test.adoc", "internal_dir/test2.adoc"]);
+        done();
     });
 });
