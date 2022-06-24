@@ -18,6 +18,9 @@ class Constants {
     public static readonly hash: string = "#";
     public static readonly dPlus: string = "++";
     public static readonly dColon: string = "::";
+    public static readonly eAdoc: string = ".adoc";
+    public static readonly eAsciidoc: string = ".asciidoc";
+    public static readonly eHtml: string = ".html";
 
 }
 

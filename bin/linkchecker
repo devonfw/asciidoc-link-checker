@@ -42,11 +42,12 @@ function logError(err) {
 
 function linkCheck() {
     const directory = argv._[0];
+    const enforceInternalHtmlLinks = argv._[1];
     try {
         if (argv.help || argv.h || !directory) {
             console.log(HELP)
         } else {
-            verify_links.linkChecker(directory)
+            verify_links.linkChecker(directory, enforceInternalHtmlLinks)
         }
 
     } catch (e) {

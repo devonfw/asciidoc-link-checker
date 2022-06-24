@@ -1,6 +1,8 @@
 import { expect } from "chai";
 import "mocha";
-import { getLinks, fixLink, getImageValue, getLinkValue, sendRequest } from "./index";
+import { getLinks, fixLink, getImageValue, getLinkValue } from "./parser";
+import { sendRequest } from "./external_link_checker";
+import { Link } from "./model";
 
 describe("fixLink function", () => {
     it("should return true", () => {
@@ -48,7 +50,7 @@ describe("getImageValue function", () => {
 
 describe("sendRequest  function", () => {
     it("should return true", (done) => {
-        const link = "https://www.google.es";
+        const link = new Link("https://www.google.es", "");
         sendRequest(link).then((res) => {
             try {
                 expect(res).to.be.true;
@@ -61,11 +63,8 @@ describe("sendRequest  function", () => {
         });
 
     });
-});
-
-describe("sendRequest  function", () => {
     it("should return false", (done) => {
-        const link = "https://dilbert.com/404";
+        const link = new Link("https://dilbert.com/404", "");
         sendRequest(link).then((res) => {
             try {
                 expect(res).to.be.false;
