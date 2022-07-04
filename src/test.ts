@@ -25,7 +25,7 @@ describe("fixLink function", () => {
 describe("getLinkValue function", () => {
     it("should return https://www.google.es", () => {
         const link: string = "link:https://www.google.es";
-        const result = getLinkValue(link, Constants.tLink);
+        const result = getLinkValue(link, Constants.tLink, "");
         expect(result).equal("https://www.google.es");
     });
 
@@ -39,10 +39,10 @@ describe("getImageValue function", () => {
             "image::http://www.google.es[]",
             "image::test.PNG[]",
         ];
-        const r0 = getLinkValue(link[0], Constants.tImage);
-        const r1 = getLinkValue(link[1], Constants.tImage);
-        const r2 = getLinkValue(link[2], Constants.tImage);
-        const r3 = getLinkValue(link[3], Constants.tImage);
+        const r0 = getLinkValue(link[0], Constants.tImage, "");
+        const r1 = getLinkValue(link[1], Constants.tImage, "");
+        const r2 = getLinkValue(link[2], Constants.tImage, "");
+        const r3 = getLinkValue(link[3], Constants.tImage, "");
         expect(r0).equal("images/test.PNG");
         expect(r1).equal("https://www.google.es");
         expect(r2).equal("http://www.google.es");

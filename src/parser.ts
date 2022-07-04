@@ -108,7 +108,7 @@ export function fixLink(link: string) {
 export function getLinkValue(link: string, tag: string, imagesdir: string) {
     const ref = link.split("[]")[0];
     const linkValue =  ref.substring(link.indexOf(tag) + tag.length);
-    return isImage(tag) ? imagesdir + "/" + linkValue : linkValue;
+    return isImage(tag) && imagesdir.length > 0 ? imagesdir + "/" + linkValue : linkValue;
 }
 
 function isImage(tag: string) {
