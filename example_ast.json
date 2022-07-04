@@ -1,0 +1,1303 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": ":toc-title: Table of Contents\n:toc: left\n:toclevels: 3\n:sectnumlevels: 5\n:xrefstyle: short\n:numbered:\n:icons: font",
+          "position": {
+            "start": { "line": 1, "column": 1, "offset": 0 },
+            "end": { "line": 7, "column": 13, "offset": 114 },
+            "indent": [1, 1, 1, 1, 1, 1]
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 1, "column": 1, "offset": 0 },
+        "end": { "line": 7, "column": 13, "offset": 114 },
+        "indent": [1, 1, 1, 1, 1, 1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "// Subfolder\n:imagesdir: ./images",
+          "position": {
+            "start": { "line": 9, "column": 1, "offset": 116 },
+            "end": { "line": 10, "column": 21, "offset": 149 },
+            "indent": [1]
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 9, "column": 1, "offset": 116 },
+        "end": { "line": 10, "column": 21, "offset": 149 },
+        "indent": [1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": ":creator: Capgemini\n:producer: Asciidoctor\n:keywords: ArchGuide, Architecture",
+          "position": {
+            "start": { "line": 12, "column": 1, "offset": 151 },
+            "end": { "line": 14, "column": 35, "offset": 228 },
+            "indent": [1, 1]
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 12, "column": 1, "offset": 151 },
+        "end": { "line": 14, "column": 35, "offset": 228 },
+        "indent": [1, 1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "= Strategic Domain Driven Design",
+          "position": {
+            "start": { "line": 16, "column": 1, "offset": 230 },
+            "end": { "line": 16, "column": 33, "offset": 262 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 16, "column": 1, "offset": 230 },
+        "end": { "line": 16, "column": 33, "offset": 262 },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "== Overview",
+          "position": {
+            "start": { "line": 18, "column": 1, "offset": 264 },
+            "end": { "line": 18, "column": 12, "offset": 275 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 18, "column": 1, "offset": 264 },
+        "end": { "line": 18, "column": 12, "offset": 275 },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Domain Driven Design is an architecture approach with a strong orientation towards the business domain.\nIt is based largely on a book by Eric Evans (",
+          "position": {
+            "start": { "line": 20, "column": 1, "offset": 277 },
+            "end": { "line": 21, "column": 46, "offset": 426 },
+            "indent": [1]
+          }
+        },
+        {
+          "type": "link",
+          "title": null,
+          "url": "https://www.domainlanguage.com/ddd/blue-book/[blue",
+          "children": [
+            {
+              "type": "text",
+              "value": "https://www.domainlanguage.com/ddd/blue-book/[blue",
+              "position": {
+                "start": { "line": 21, "column": 46, "offset": 426 },
+                "end": { "line": 21, "column": 96, "offset": 476 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 21, "column": 46, "offset": 426 },
+            "end": { "line": 21, "column": 96, "offset": 476 },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": " book]), later on refined by a book from Vaughn Vernon detailing the concrete implementation of DDD in an organization (",
+          "position": {
+            "start": { "line": 21, "column": 96, "offset": 476 },
+            "end": { "line": 21, "column": 216, "offset": 596 },
+            "indent": []
+          }
+        },
+        {
+          "type": "link",
+          "title": null,
+          "url": "https://kalele.io/books/[red",
+          "children": [
+            {
+              "type": "text",
+              "value": "https://kalele.io/books/[red",
+              "position": {
+                "start": { "line": 21, "column": 216, "offset": 596 },
+                "end": { "line": 21, "column": 244, "offset": 624 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 21, "column": 216, "offset": 596 },
+            "end": { "line": 21, "column": 244, "offset": 624 },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": " book]).\nIts goal is to establish a ubitiqous language across domain and IT experts based on which the architecture or design of a system can be build.\nThe following figure gives an overview of what DDD is about.",
+          "position": {
+            "start": { "line": 21, "column": 244, "offset": 624 },
+            "end": { "line": 23, "column": 61, "offset": 836 },
+            "indent": [1, 1]
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 20, "column": 1, "offset": 277 },
+        "end": { "line": 23, "column": 61, "offset": 836 },
+        "indent": [1, 1, 1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": ".Overview of Domain Driven Design\nimage:DDD_Overview.png",
+          "position": {
+            "start": { "line": 25, "column": 1, "offset": 838 },
+            "end": { "line": 26, "column": 23, "offset": 894 },
+            "indent": [1]
+          }
+        },
+        {
+          "type": "linkReference",
+          "identifier": "ddd overview",
+          "referenceType": "shortcut",
+          "children": [
+            {
+              "type": "text",
+              "value": "DDD Overview",
+              "position": {
+                "start": { "line": 26, "column": 24, "offset": 895 },
+                "end": { "line": 26, "column": 36, "offset": 907 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 26, "column": 23, "offset": 894 },
+            "end": { "line": 26, "column": 37, "offset": 908 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 25, "column": 1, "offset": 838 },
+        "end": { "line": 26, "column": 37, "offset": 908 },
+        "indent": [1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "As you can see it can roughly be split into two parts: the strategic design (content of this article) and the tactical design (content of link:../../micro_architecture/backend/tactical_ddd/tactical_ddd.html",
+          "position": {
+            "start": { "line": 28, "column": 1, "offset": 910 },
+            "end": { "line": 28, "column": 207, "offset": 1116 },
+            "indent": []
+          }
+        },
+        {
+          "type": "linkReference",
+          "identifier": "this article",
+          "referenceType": "shortcut",
+          "children": [
+            {
+              "type": "text",
+              "value": "this article",
+              "position": {
+                "start": { "line": 28, "column": 208, "offset": 1117 },
+                "end": { "line": 28, "column": 220, "offset": 1129 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 28, "column": 207, "offset": 1116 },
+            "end": { "line": 28, "column": 221, "offset": 1130 },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": "). The link:",
+          "position": {
+            "start": { "line": 28, "column": 221, "offset": 1130 },
+            "end": { "line": 28, "column": 233, "offset": 1142 },
+            "indent": []
+          }
+        },
+        {
+          "type": "link",
+          "title": null,
+          "url": "https://www.domainlanguage.com/ddd/reference[DDD",
+          "children": [
+            {
+              "type": "text",
+              "value": "https://www.domainlanguage.com/ddd/reference[DDD",
+              "position": {
+                "start": { "line": 28, "column": 233, "offset": 1142 },
+                "end": { "line": 28, "column": 281, "offset": 1190 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 28, "column": 233, "offset": 1142 },
+            "end": { "line": 28, "column": 281, "offset": 1190 },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": " Reference] gives a good summary of all DDD concepts.",
+          "position": {
+            "start": { "line": 28, "column": 281, "offset": 1190 },
+            "end": { "line": 28, "column": 334, "offset": 1243 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 28, "column": 1, "offset": 910 },
+        "end": { "line": 28, "column": 334, "offset": 1243 },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "The goal of strategic design is to decompose a large, complex domain into subdomains and consequently each subdomain into bounded contexts.\nDependencies between bounded contexts are then explicitly traced in a context map and implemented by using one of the provided strategic design patterns.",
+          "position": {
+            "start": { "line": 30, "column": 1, "offset": 1245 },
+            "end": { "line": 31, "column": 154, "offset": 1538 },
+            "indent": [1]
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 30, "column": 1, "offset": 1245 },
+        "end": { "line": 31, "column": 154, "offset": 1538 },
+        "indent": [1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "== Decomposition into subdomains",
+          "position": {
+            "start": { "line": 33, "column": 1, "offset": 1540 },
+            "end": { "line": 33, "column": 33, "offset": 1572 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 33, "column": 1, "offset": 1540 },
+        "end": { "line": 33, "column": 33, "offset": 1572 },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "The actual decomposition into subdomains is a business architecture topic and several methods for this exist.\nMost notably big picture event storming can be used as a collaborative format for identification of subdomains.\nTypical candidates for this are the parts of the big picture between pivotal events and swim lanes (s. link:",
+          "position": {
+            "start": { "line": 35, "column": 1, "offset": 1574 },
+            "end": { "line": 37, "column": 109, "offset": 1904 },
+            "indent": [1, 1]
+          }
+        },
+        {
+          "type": "link",
+          "title": null,
+          "url": "https://www.eventstorming.com/[Event",
+          "children": [
+            {
+              "type": "text",
+              "value": "https://www.eventstorming.com/[Event",
+              "position": {
+                "start": { "line": 37, "column": 109, "offset": 1904 },
+                "end": { "line": 37, "column": 145, "offset": 1940 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 37, "column": 109, "offset": 1904 },
+            "end": { "line": 37, "column": 145, "offset": 1940 },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": " Storming]).\nEach subdomain thus identified can be classified into one of the following:",
+          "position": {
+            "start": { "line": 37, "column": 145, "offset": 1940 },
+            "end": { "line": 38, "column": 76, "offset": 2028 },
+            "indent": [1]
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 35, "column": 1, "offset": 1574 },
+        "end": { "line": 38, "column": 76, "offset": 2028 },
+        "indent": [1, 1, 1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Core subdomain:: the true business of a company, where it differentiates itself in a unique way from competitors in a complex context.\nThe uniqueness necessitates that no existing software exists to support the business as done by the company.\nIt brings a competitive advantage and therefore the willingness to invest in this subdomain, since it can yield a positive ROI.\nSupporting subdomain:: the part of the business where no off-the-shelf product implementing this functionality exists, but where the company cannot really gain a competitive advantage.\nCaution is advised in those cases where a supporting subdomain is becoming complex, because it is then actually becoming a core domain, or the added complexity should be questioned against the business value.\nGeneric subdomain:: the part of the business, where industry solutions simply exist and no gain in own solutions can be identified.",
+          "position": {
+            "start": { "line": 40, "column": 1, "offset": 2030 },
+            "end": { "line": 45, "column": 132, "offset": 2927 },
+            "indent": [1, 1, 1, 1, 1]
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 40, "column": 1, "offset": 2030 },
+        "end": { "line": 45, "column": 132, "offset": 2927 },
+        "indent": [1, 1, 1, 1, 1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "A very good, more detailed explanation on the above can be found link:",
+          "position": {
+            "start": { "line": 47, "column": 1, "offset": 2929 },
+            "end": { "line": 47, "column": 71, "offset": 2999 },
+            "indent": []
+          }
+        },
+        {
+          "type": "link",
+          "title": null,
+          "url": "https://vladikk.com/2018/01/26/revisiting-the-basics-of-ddd/[here]",
+          "children": [
+            {
+              "type": "text",
+              "value": "https://vladikk.com/2018/01/26/revisiting-the-basics-of-ddd/[here]",
+              "position": {
+                "start": { "line": 47, "column": 71, "offset": 2999 },
+                "end": { "line": 47, "column": 137, "offset": 3065 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 47, "column": 71, "offset": 2999 },
+            "end": { "line": 47, "column": 137, "offset": 3065 },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": ".\nThe DDD crew provides a good heuristic for classifying subdomains in two dimensions:",
+          "position": {
+            "start": { "line": 47, "column": 137, "offset": 3065 },
+            "end": { "line": 48, "column": 85, "offset": 3151 },
+            "indent": [1]
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 47, "column": 1, "offset": 2929 },
+        "end": { "line": 48, "column": 85, "offset": 3151 },
+        "indent": [1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": ".link:",
+          "position": {
+            "start": { "line": 50, "column": 1, "offset": 3153 },
+            "end": { "line": 50, "column": 7, "offset": 3159 },
+            "indent": []
+          }
+        },
+        {
+          "type": "link",
+          "title": null,
+          "url": "https://github.com/ddd-crew/core-domain-charts[Core",
+          "children": [
+            {
+              "type": "text",
+              "value": "https://github.com/ddd-crew/core-domain-charts[Core",
+              "position": {
+                "start": { "line": 50, "column": 7, "offset": 3159 },
+                "end": { "line": 50, "column": 58, "offset": 3210 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 50, "column": 7, "offset": 3159 },
+            "end": { "line": 50, "column": 58, "offset": 3210 },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": " Domain Charts] technique from the DDD crew\nimage:",
+          "position": {
+            "start": { "line": 50, "column": 58, "offset": 3210 },
+            "end": { "line": 51, "column": 7, "offset": 3260 },
+            "indent": [1]
+          }
+        },
+        {
+          "type": "link",
+          "title": null,
+          "url": "https://github.com/ddd-crew/ddd-starter-modelling-process/raw/master/resources/core-domain-chart.jpg[,500,",
+          "children": [
+            {
+              "type": "text",
+              "value": "https://github.com/ddd-crew/ddd-starter-modelling-process/raw/master/resources/core-domain-chart.jpg[,500,",
+              "position": {
+                "start": { "line": 51, "column": 7, "offset": 3260 },
+                "end": { "line": 51, "column": 113, "offset": 3366 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 51, "column": 7, "offset": 3260 },
+            "end": { "line": 51, "column": 113, "offset": 3366 },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": "]",
+          "position": {
+            "start": { "line": 51, "column": 113, "offset": 3366 },
+            "end": { "line": 51, "column": 114, "offset": 3367 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 50, "column": 1, "offset": 3153 },
+        "end": { "line": 51, "column": 114, "offset": 3367 },
+        "indent": [1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "== Decomposition into bounded contexts",
+          "position": {
+            "start": { "line": 54, "column": 1, "offset": 3370 },
+            "end": { "line": 54, "column": 39, "offset": 3408 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 54, "column": 1, "offset": 3370 },
+        "end": { "line": 54, "column": 39, "offset": 3408 },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Whereas the domain and its subdomains purely address the problem space of a business challenge, bounded contexts aim at the solutions space.\nTypically within a large domain, the ubitiqous language cannot be applied canonically across all contexts.\nBetween the different subdomain different understandings on the same terms may exist.",
+          "position": {
+            "start": { "line": 56, "column": 1, "offset": 3410 },
+            "end": { "line": 58, "column": 86, "offset": 3743 },
+            "indent": [1, 1]
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 56, "column": 1, "offset": 3410 },
+        "end": { "line": 58, "column": 86, "offset": 3743 },
+        "indent": [1, 1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "A typical example would be the customer: the sales subdomain handles a customer in a completely different way then the after sales.\nFor the sales subdomain the business opportunities and how to actually win them is important.\nThe after-sales subdomain is interested however in the bought products and what service level the customer acquired.",
+          "position": {
+            "start": { "line": 60, "column": 1, "offset": 3745 },
+            "end": { "line": 62, "column": 117, "offset": 4087 },
+            "indent": [1, 1]
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 60, "column": 1, "offset": 3745 },
+        "end": { "line": 62, "column": 117, "offset": 4087 },
+        "indent": [1, 1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "DDD does not aim towards a holistic ubitiqous language, but realistically only aims towards such a common language understanding in a ",
+          "position": {
+            "start": { "line": 64, "column": 1, "offset": 4089 },
+            "end": { "line": 64, "column": 135, "offset": 4223 },
+            "indent": []
+          }
+        },
+        {
+          "type": "emphasis",
+          "children": [
+            {
+              "type": "text",
+              "value": "bounded context",
+              "position": {
+                "start": { "line": 64, "column": 136, "offset": 4224 },
+                "end": { "line": 64, "column": 151, "offset": 4239 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 64, "column": 135, "offset": 4223 },
+            "end": { "line": 64, "column": 152, "offset": 4240 },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": ".",
+          "position": {
+            "start": { "line": 64, "column": 152, "offset": 4240 },
+            "end": { "line": 64, "column": 153, "offset": 4241 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 64, "column": 1, "offset": 4089 },
+        "end": { "line": 64, "column": 153, "offset": 4241 },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Bounded Context:: the bounded context establishes a ubitiqous language expressed via a domain model in a single subdomain",
+          "position": {
+            "start": { "line": 66, "column": 1, "offset": 4243 },
+            "end": { "line": 66, "column": 122, "offset": 4364 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 66, "column": 1, "offset": 4243 },
+        "end": { "line": 66, "column": 122, "offset": 4364 },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "The core design task in strategic DDD is to identify these bounded contexts and then to relate them with each other where dependencies between them exist.\nFor identification event storming is again recommended within the industry and also by ADAM.",
+          "position": {
+            "start": { "line": 68, "column": 1, "offset": 4366 },
+            "end": { "line": 69, "column": 93, "offset": 4613 },
+            "indent": [1]
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 68, "column": 1, "offset": 4366 },
+        "end": { "line": 69, "column": 93, "offset": 4613 },
+        "indent": [1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "They can be further defined by using a canvas approach as for instance this one (ADAM also provides an own version of this):",
+          "position": {
+            "start": { "line": 71, "column": 1, "offset": 4615 },
+            "end": { "line": 71, "column": 125, "offset": 4739 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 71, "column": 1, "offset": 4615 },
+        "end": { "line": 71, "column": 125, "offset": 4739 },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": ".link:",
+          "position": {
+            "start": { "line": 73, "column": 1, "offset": 4741 },
+            "end": { "line": 73, "column": 7, "offset": 4747 },
+            "indent": []
+          }
+        },
+        {
+          "type": "link",
+          "title": null,
+          "url": "https://github.com/ddd-crew/bounded-context-canvas[Bounded",
+          "children": [
+            {
+              "type": "text",
+              "value": "https://github.com/ddd-crew/bounded-context-canvas[Bounded",
+              "position": {
+                "start": { "line": 73, "column": 7, "offset": 4747 },
+                "end": { "line": 73, "column": 65, "offset": 4805 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 73, "column": 7, "offset": 4747 },
+            "end": { "line": 73, "column": 65, "offset": 4805 },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": " Context Canvas] from DDD crew\nimage:",
+          "position": {
+            "start": { "line": 73, "column": 65, "offset": 4805 },
+            "end": { "line": 74, "column": 7, "offset": 4842 },
+            "indent": [1]
+          }
+        },
+        {
+          "type": "link",
+          "title": null,
+          "url": "https://github.com/ddd-crew/ddd-starter-modelling-process/raw/master/resources/bounded-context-canvas-v4.jpeg[",
+          "children": [
+            {
+              "type": "text",
+              "value": "https://github.com/ddd-crew/ddd-starter-modelling-process/raw/master/resources/bounded-context-canvas-v4.jpeg[",
+              "position": {
+                "start": { "line": 74, "column": 7, "offset": 4842 },
+                "end": { "line": 74, "column": 117, "offset": 4952 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 74, "column": 7, "offset": 4842 },
+            "end": { "line": 74, "column": 117, "offset": 4952 },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": "]",
+          "position": {
+            "start": { "line": 74, "column": 117, "offset": 4952 },
+            "end": { "line": 74, "column": 118, "offset": 4953 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 73, "column": 1, "offset": 4741 },
+        "end": { "line": 74, "column": 118, "offset": 4953 },
+        "indent": [1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "For each bounded context, a different architecture can then make sense depending on the requirements and also the subdomain it lies in.\nIt is especially noteworthy, that link:../../micro_architecture/backend/tactical_ddd/tactical_ddd.html",
+          "position": {
+            "start": { "line": 76, "column": 1, "offset": 4955 },
+            "end": { "line": 77, "column": 103, "offset": 5193 },
+            "indent": [1]
+          }
+        },
+        {
+          "type": "linkReference",
+          "identifier": "tactical ddd",
+          "referenceType": "shortcut",
+          "children": [
+            {
+              "type": "text",
+              "value": "Tactical DDD",
+              "position": {
+                "start": { "line": 77, "column": 104, "offset": 5194 },
+                "end": { "line": 77, "column": 116, "offset": 5206 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 77, "column": 103, "offset": 5193 },
+            "end": { "line": 77, "column": 117, "offset": 5207 },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": " is often seen as especially valuable for the core subdomain.\nFor bounded contexts in generic or supporting subdomains, a simple CRUD-based or low code architecture might be a better choice.",
+          "position": {
+            "start": { "line": 77, "column": 117, "offset": 5207 },
+            "end": { "line": 78, "column": 129, "offset": 5397 },
+            "indent": [1]
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 76, "column": 1, "offset": 4955 },
+        "end": { "line": 78, "column": 129, "offset": 5397 },
+        "indent": [1, 1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "== Context Mapping",
+          "position": {
+            "start": { "line": 80, "column": 1, "offset": 5399 },
+            "end": { "line": 80, "column": 19, "offset": 5417 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 80, "column": 1, "offset": 5399 },
+        "end": { "line": 80, "column": 19, "offset": 5417 },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Bounded contexts do not exist standalone, but depend on each other and thus require integration.\nStrategic design defines different patterns for mapping and integrating one context with others as can be seen from the overview above.",
+          "position": {
+            "start": { "line": 82, "column": 1, "offset": 5419 },
+            "end": { "line": 83, "column": 136, "offset": 5651 },
+            "indent": [1]
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 82, "column": 1, "offset": 5419 },
+        "end": { "line": 83, "column": 136, "offset": 5651 },
+        "indent": [1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Again we only point to the link:",
+          "position": {
+            "start": { "line": 85, "column": 1, "offset": 5653 },
+            "end": { "line": 85, "column": 33, "offset": 5685 },
+            "indent": []
+          }
+        },
+        {
+          "type": "link",
+          "title": null,
+          "url": "https://www.domainlanguage.com/ddd/reference/[DDD",
+          "children": [
+            {
+              "type": "text",
+              "value": "https://www.domainlanguage.com/ddd/reference/[DDD",
+              "position": {
+                "start": { "line": 85, "column": 33, "offset": 5685 },
+                "end": { "line": 85, "column": 82, "offset": 5734 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 85, "column": 33, "offset": 5685 },
+            "end": { "line": 85, "column": 82, "offset": 5734 },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": " Reference] for the definition of those patterns and to this summary given below by the DDD crew.\nADAM in addition provides guidance on how contexts can be related between each other.",
+          "position": {
+            "start": { "line": 85, "column": 82, "offset": 5734 },
+            "end": { "line": 86, "column": 86, "offset": 5917 },
+            "indent": [1]
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 85, "column": 1, "offset": 5653 },
+        "end": { "line": 86, "column": 86, "offset": 5917 },
+        "indent": [1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": ".Summary of context map patterns\nimage:",
+          "position": {
+            "start": { "line": 88, "column": 1, "offset": 5919 },
+            "end": { "line": 89, "column": 7, "offset": 5958 },
+            "indent": [1]
+          }
+        },
+        {
+          "type": "link",
+          "title": null,
+          "url": "https://github.com/ddd-crew/ddd-starter-modelling-process/raw/master/resources/context-map-cheat-sheet.png[",
+          "children": [
+            {
+              "type": "text",
+              "value": "https://github.com/ddd-crew/ddd-starter-modelling-process/raw/master/resources/context-map-cheat-sheet.png[",
+              "position": {
+                "start": { "line": 89, "column": 7, "offset": 5958 },
+                "end": { "line": 89, "column": 114, "offset": 6065 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 89, "column": 7, "offset": 5958 },
+            "end": { "line": 89, "column": 114, "offset": 6065 },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": "]",
+          "position": {
+            "start": { "line": 89, "column": 114, "offset": 6065 },
+            "end": { "line": 89, "column": 115, "offset": 6066 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 88, "column": 1, "offset": 5919 },
+        "end": { "line": 89, "column": 115, "offset": 6066 },
+        "indent": [1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "== Relation to component-oriented architecture",
+          "position": {
+            "start": { "line": 91, "column": 1, "offset": 6068 },
+            "end": { "line": 91, "column": 47, "offset": 6114 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 91, "column": 1, "offset": 6068 },
+        "end": { "line": 91, "column": 47, "offset": 6114 },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Strategic DDD is not yet widely used within CCA Germany.\nMost of our large-scale projects instead successfully applied a component-oriented architecture on a big domain, by decomposition into subsystems and subcomponents.\nA business component or subsystem in such an architecture could be interpreted as a bounded context.\nIn such an architecture we also addressed different types of subdomains by classification of different business component types:",
+          "position": {
+            "start": { "line": 93, "column": 1, "offset": 6116 },
+            "end": { "line": 96, "column": 129, "offset": 6567 },
+            "indent": [1, 1, 1]
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 93, "column": 1, "offset": 6116 },
+        "end": { "line": 96, "column": 129, "offset": 6567 },
+        "indent": [1, 1, 1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "image:a_component_types.png[]",
+          "position": {
+            "start": { "line": 98, "column": 1, "offset": 6569 },
+            "end": { "line": 98, "column": 30, "offset": 6598 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 98, "column": 1, "offset": 6569 },
+        "end": { "line": 98, "column": 30, "offset": 6598 },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Depending on the concrete requirements, a different type with differing guidelines was used.",
+          "position": {
+            "start": { "line": 100, "column": 1, "offset": 6600 },
+            "end": { "line": 100, "column": 93, "offset": 6692 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 100, "column": 1, "offset": 6600 },
+        "end": { "line": 100, "column": 93, "offset": 6692 },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Comparing both approaches however we can see that the DDD approach is more business value oriented and also does not try to apply the same technical architecture to each bounded context.\nOn the other it does not make sense to allow complete freedom of architecture styles per bounded context in an enterprise due to economic considerations regarding team rotations, knowledge sharing and in general TCO of the technical solutions.\nTherefore, a definition of architecture archetypes makes sense and should be considered.",
+          "position": {
+            "start": { "line": 102, "column": 1, "offset": 6694 },
+            "end": { "line": 104, "column": 89, "offset": 7213 },
+            "indent": [1, 1]
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 102, "column": 1, "offset": 6694 },
+        "end": { "line": 104, "column": 89, "offset": 7213 },
+        "indent": [1, 1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "== Further links",
+          "position": {
+            "start": { "line": 106, "column": 1, "offset": 7215 },
+            "end": { "line": 106, "column": 17, "offset": 7231 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 106, "column": 1, "offset": 7215 },
+        "end": { "line": 106, "column": 17, "offset": 7231 },
+        "indent": []
+      }
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "start": null,
+      "loose": false,
+      "children": [
+        {
+          "type": "listItem",
+          "loose": false,
+          "checked": null,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "link:",
+                  "position": {
+                    "start": { "line": 108, "column": 3, "offset": 7235 },
+                    "end": { "line": 108, "column": 8, "offset": 7240 },
+                    "indent": []
+                  }
+                },
+                {
+                  "type": "link",
+                  "title": null,
+                  "url": "https://miro.com/app/board/uXjVOST9YZI=/[DDD",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "https://miro.com/app/board/uXjVOST9YZI=/[DDD",
+                      "position": {
+                        "start": { "line": 108, "column": 8, "offset": 7240 },
+                        "end": { "line": 108, "column": 52, "offset": 7284 },
+                        "indent": []
+                      }
+                    }
+                  ],
+                  "position": {
+                    "start": { "line": 108, "column": 8, "offset": 7240 },
+                    "end": { "line": 108, "column": 52, "offset": 7284 },
+                    "indent": []
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": " Reference Collection by Michael Plöd]",
+                  "position": {
+                    "start": { "line": 108, "column": 52, "offset": 7284 },
+                    "end": { "line": 108, "column": 90, "offset": 7322 },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": { "line": 108, "column": 3, "offset": 7235 },
+                "end": { "line": 108, "column": 90, "offset": 7322 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 108, "column": 1, "offset": 7233 },
+            "end": { "line": 108, "column": 90, "offset": 7322 },
+            "indent": []
+          }
+        },
+        {
+          "type": "listItem",
+          "loose": false,
+          "checked": null,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "link:",
+                  "position": {
+                    "start": { "line": 109, "column": 3, "offset": 7325 },
+                    "end": { "line": 109, "column": 8, "offset": 7330 },
+                    "indent": []
+                  }
+                },
+                {
+                  "type": "link",
+                  "title": null,
+                  "url": "https://github.com/ddd-crew/ddd-starter-modelling-process[Starter",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "https://github.com/ddd-crew/ddd-starter-modelling-process[Starter",
+                      "position": {
+                        "start": { "line": 109, "column": 8, "offset": 7330 },
+                        "end": { "line": 109, "column": 73, "offset": 7395 },
+                        "indent": []
+                      }
+                    }
+                  ],
+                  "position": {
+                    "start": { "line": 109, "column": 8, "offset": 7330 },
+                    "end": { "line": 109, "column": 73, "offset": 7395 },
+                    "indent": []
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": " modeling kit for DDD by the ddd-crew]",
+                  "position": {
+                    "start": { "line": 109, "column": 73, "offset": 7395 },
+                    "end": { "line": 109, "column": 111, "offset": 7433 },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": { "line": 109, "column": 3, "offset": 7325 },
+                "end": { "line": 109, "column": 111, "offset": 7433 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 109, "column": 1, "offset": 7323 },
+            "end": { "line": 109, "column": 111, "offset": 7433 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 108, "column": 1, "offset": 7233 },
+        "end": { "line": 109, "column": 111, "offset": 7433 },
+        "indent": [1]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "== Internal links",
+          "position": {
+            "start": { "line": 111, "column": 1, "offset": 7435 },
+            "end": { "line": 111, "column": 18, "offset": 7452 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 111, "column": 1, "offset": 7435 },
+        "end": { "line": 111, "column": 18, "offset": 7452 },
+        "indent": []
+      }
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "start": null,
+      "loose": false,
+      "children": [
+        {
+          "type": "listItem",
+          "loose": false,
+          "checked": null,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "link:",
+                  "position": {
+                    "start": { "line": 113, "column": 3, "offset": 7456 },
+                    "end": { "line": 113, "column": 8, "offset": 7461 },
+                    "indent": []
+                  }
+                },
+                {
+                  "type": "link",
+                  "title": null,
+                  "url": "https://capgemini.sharepoint.com/sites/A-D-A-M[Agile",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "https://capgemini.sharepoint.com/sites/A-D-A-M[Agile",
+                      "position": {
+                        "start": { "line": 113, "column": 8, "offset": 7461 },
+                        "end": { "line": 113, "column": 60, "offset": 7513 },
+                        "indent": []
+                      }
+                    }
+                  ],
+                  "position": {
+                    "start": { "line": 113, "column": 8, "offset": 7461 },
+                    "end": { "line": 113, "column": 60, "offset": 7513 },
+                    "indent": []
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": " Design Applied Method]: our design methodology toolbox also relies heavily on the strategic domain driven design",
+                  "position": {
+                    "start": { "line": 113, "column": 60, "offset": 7513 },
+                    "end": { "line": 113, "column": 173, "offset": 7626 },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": { "line": 113, "column": 3, "offset": 7456 },
+                "end": { "line": 113, "column": 173, "offset": 7626 },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 113, "column": 1, "offset": 7454 },
+            "end": { "line": 113, "column": 173, "offset": 7626 },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 113, "column": 1, "offset": 7454 },
+        "end": { "line": 113, "column": 173, "offset": 7626 },
+        "indent": []
+      }
+    }
+  ],
+  "position": {
+    "start": { "line": 1, "column": 1, "offset": 0 },
+    "end": { "line": 114, "column": 1, "offset": 7627 }
+  }
+}

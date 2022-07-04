@@ -25,21 +25,22 @@ const chalk = require("chalk");
     const req = link.value;
     let response: any;
     const code: boolean = true;
+    // Note: some sites like e.g. https://marketplace.visualstudio.com do not support HEAD as request...
     return new Promise < boolean > ((resolve, reject) =>
-        request.head(req).end((err: any, res: request.Response) => {
+        request.get(req).end((err: any, res: request.Response) => {
             if (res === undefined) {
                 console.log(chalk.yellow("WARNING: ") + link.sourceFile + " " +
-                    Constants.arrow + " " + link + " " + chalk.blue(Constants.arrow + " site cannot be reached"));
+                    Constants.arrow + " " + link.value + " " + chalk.blue(Constants.arrow + " site cannot be reached"));
             } else {
                 response = res.status;
                 // Request to private repositories need autentication
                 if (response === 404 && link.value.indexOf(Constants.github) >= 0) {
                     console.log(chalk.yellow("WARNING: ") + link.sourceFile + " " +
-                        Constants.arrow + " " + link + " " + chalk.blue(Constants.arrow + " cannot be verified"));
+                        Constants.arrow + " " + link.value + " " + chalk.blue(Constants.arrow + " cannot be verified"));
                 } else {
                     if (response === 404) {
                         console.log(chalk.red("ERROR: ") + link.sourceFile + " " +
-                            Constants.arrow + " " + link + " " + chalk.red(Constants.arrow + " " + response));
+                            Constants.arrow + " " + link.value + " " + chalk.red(Constants.arrow + " " + response));
                         resolve(false);
                         return;
                     }

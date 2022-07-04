@@ -5,18 +5,27 @@ import Constants from "./constants";
 const remark = require("remark");
 const chalk = require("chalk");
 
+const imagesdirRegEx : RegExp = /:imagesdir:\s+(\S+)/;
+let imagesdir = "";
+
+/** 
+ * List of tags used for internal linkage of resources.
+ * NOTE: order is important here since tInlineImage is a subset of tImage and must be checked after!
+ */
+const internalLinkTags = [Constants.tLink, Constants.tXref, Constants.tImage, Constants.tInlineImage]
+
 export function parseFileForLinks(file: string, internalLinks: Link[], externalLinks: Link[]) {
     console.log(chalk.green("INFO: Checking file: " + file));
     const ast = remark().parse(fs.readFileSync(file, "utf-8"));
     const childrens: any[] = ast.children;
     childrens.forEach((child) => {
-        getLinks(child).forEach((link) => {
-            if (link.indexOf(Constants.http) >= 0 || link.indexOf(Constants.https) >= 0) {
-                // not checking whether link is already present since it should be reported
-                // for all files where it is wrongly referenced!
-                externalLinks.push(new Link(link, file));
+        // Note that we do not check whether link is already present since it should be reported
+        // for all files where it is wrongly referenced!
+        getLinks(child, file).forEach((link) => {
+            if (link.external) {
+                externalLinks.push(link);
             } else {
-                internalLinks.push(new Link(link, file));
+                internalLinks.push(link);
             }
         });
     });
@@ -26,13 +35,15 @@ export function parseFileForLinks(file: string, internalLinks: Link[], externalL
  * Recursively get the links from the AST and push them into an array,
  * There are 2 types of link(external and internal) and each one have one array
  */
- export function getLinks(childOfChild: any): string[] {
-    let links: string[] = [];
+ export function getLinks(childOfChild: any, file: string): Link[] {
+    let links: Link[] = [];
     if (childOfChild.children) {
         const childrenNew: any[] = childOfChild.children;
         childrenNew.forEach((subChild) => {
             if (subChild.type) {
                 switch (subChild.type) {
+                    case "xref":
+                        links.push(new Link(subChild.url, file, Constants.tXref));
                     case "link":
                         if (subChild.url.indexOf(Constants.localhost) >= 0) {
                             break;
@@ -41,28 +52,33 @@ export function parseFileForLinks(file: string, internalLinks: Link[], externalL
                             subChild.url.indexOf(Constants.https) < 0) {
                             break;
                         }
-                        links.push(fixLink(subChild.url));
+                        links.push(new Link(fixLink(subChild.url), file, Constants.tLink));
                         break;
                     case "text":
                         // there are some special characters that need to be checked
-                        const str = subChild.value.split("\n");
-                        str.forEach((item: string) => {
-                            if ((item as string).endsWith(Constants.dPlus)) {
+                        const lines = subChild.value.split("\n");
+                        lines.forEach((line: string) => {
+                            if (line.endsWith(Constants.dPlus) || line.startsWith(Constants.dSlash)) {
                                 return;
                             }
-                            if (item.indexOf(Constants.tLink) >= 0) {
-                                if (!item.startsWith(Constants.dSlash)) {
-                                    links.push(getLinkValue(item));
+                            for (let tag of internalLinkTags) {
+                                if (line.indexOf(tag) >= 0) {
+                                    let link = new Link(getLinkValue(line, tag, imagesdir), file, tag);
+                                    if (link.value && link.value.length > 0) {
+                                        // for some reason external links listed as link and text nodes
+                                        // in the text nodes they consist however only of "link:"
+                                        links.push(link);
+                                    }
+                                    break;
                                 }
-                            } else if ((item.indexOf(Constants.image) >= 0) && (item.startsWith(Constants.dSlash) === false)) {
-                                if (item.endsWith(Constants.brackets)) {
-                                    item = item.substring(0, item.lastIndexOf(Constants.bracket));
-                                }
-                                links.push(getImageValue(item));
+                            }
+                            let imagesdirCheck =  imagesdirRegEx.exec(line);
+                            if(imagesdirCheck) {
+                                imagesdir = imagesdirCheck[1];
                             }
                         });
                     default:
-                        const subLinks = getLinks(subChild);
+                        const subLinks = getLinks(subChild, file);
                         links = links.concat(subLinks);
                 }
             }
@@ -89,17 +105,14 @@ export function fixLink(link: string) {
 /**
  * The value of those links in the AST with type 'link' are getting here
  */
-export function getLinkValue(link: string) {
+export function getLinkValue(link: string, tag: string, imagesdir: string) {
     const ref = link.split("[]")[0];
-    return ref.substring(link.indexOf(Constants.tLink) + 5);
+    const linkValue =  ref.substring(link.indexOf(tag) + tag.length);
+    return isImage(tag) ? imagesdir + "/" + linkValue : linkValue;
 }
 
-export function getImageValue(link: string) {
-    if (link.indexOf(Constants.image) >= 0) {
-        link = link.substring(link.indexOf(Constants.image) + Constants.image.length);
-    }
-
-    return link;
+function isImage(tag: string) {
+    return tag === Constants.tImage || tag === Constants.tInlineImage; 
 }
 
 export default parseFileForLinks;

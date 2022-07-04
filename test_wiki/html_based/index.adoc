@@ -1,3 +1,0 @@
-Some links will be pure, some in lists to check recursive workings!
-
-link:subdir/sub_article.html[Testing link to sub dir]

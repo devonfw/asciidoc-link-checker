@@ -14,27 +14,44 @@ const chalk = require("chalk");
  * Glob allows you to searh inside a directory all the files with a certain extension, in this case 'asciidoc'
  */
 
-export function linkChecker(dir: string, enforceInternalHtmlLinks:boolean = false) {
+export function linkChecker(dir: string, enforceXref:boolean) {
+
+    let outerFiles : string[] = [];
+    glob(dir + "**/*" + Constants.adoc, async (err: any, files: any) => {
+        outerFiles = files;
+    });
+    console.log(JSON.stringify(outerFiles));
+
+    checkAllLinksInDirectory(dir, enforceXref, async (resultPromise) => {
+        const result = await resultPromise;
+        exit(result[0], result[1]);
+    });
+}
+
+export function checkAllLinksInDirectory(dir: string, enforceXref:boolean, resultHandler : (result : Promise<LinkCheckResult[]>) => void) {
 
     console.log(chalk.green("INFO: Checking dir: " + dir));
-    const externalLinks: Link[] = [];
-    const internalLinks: Link[] = [];
+
 
     glob(dir + "**/*" + Constants.adoc, async (err: any, files: any) => {
+        if (err) {
+            console.log(chalk.red("ERROR: Could not search source directory (" + err + ")"));
+        }
         if (files.length === 0) {
             console.log(chalk.red("ERROR: Directory not found or empty."));
         } else {
+            const externalLinks: Link[] = [];
+            const internalLinks: Link[] = [];
             files.forEach(
                 (file: string) => {
                     parseFileForLinks(file, internalLinks, externalLinks);
                 });
-
-            const externalCheckResult = await checkExternalLinks(externalLinks);
-            const internalCheckResult = await checkInternalLinks(internalLinks, enforceInternalHtmlLinks);
-            exit(externalCheckResult, internalCheckResult);
+            const resultPromise = Promise.all([checkExternalLinks(externalLinks), checkInternalLinks(internalLinks, enforceXref)]);
+            await resultHandler(resultPromise);
         }
     });
 }
+
 
 /**
  * Receives 2 codes(1 code for external links and 1 code for internal links, compare them and show the output
