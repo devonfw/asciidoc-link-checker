@@ -24,7 +24,8 @@ export async function checkInternalLinks(internalLinks: Link[], enforceXref: boo
             invalidLinks++;
             console.log(chalk.red("ERROR: ") + link.sourceFile + " " +
                 Constants.arrow + " " + sourceFileDir + linkValue + chalk.red(" " + Constants.arrow + " is an internal link to another ASCIIDOC and should be replaced by xref"));
-        } else if (!existsInternalFile(sourceFileDir, linkValue)) {
+        } else if (!existsInternalFile(sourceFileDir, linkValue) && 
+            (link.tag !== Constants.tXref || isAsciiDocFile(linkValue))) {
             invalidLinks++;
             console.log(chalk.red("ERROR: ") + link.sourceFile + " " +
                 Constants.arrow + " " + sourceFileDir + linkValue + chalk.red(" " + Constants.arrow + " internal link not found"));

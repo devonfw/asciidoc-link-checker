@@ -143,7 +143,15 @@ describe("checkInternalLinks function", () => {
         }).catch(err => done(err));
     });
     it("should not report errors for using linkage to adoc", (done) => {
-        const links = [new Link("subdir/sub_article.adoc","test_wiki/index.adoc", Constants.adoc)];
+        const links = [new Link("subdir/sub_article.adoc","test_wiki/index.adoc", Constants.tLink)];
+        checkInternalLinks(links, false).then(result => {
+            expect(result.totalNo).to.equal(1);
+            expect(result.invalidNo).to.equal(0);
+            done();
+        }).catch(err => done(err));
+    });
+    it("should not report errors for xref anchors", (done) => {
+        const links = [new Link("anchor_text","test_wiki/index.adoc", Constants.tXref)];
         checkInternalLinks(links, false).then(result => {
             expect(result.totalNo).to.equal(1);
             expect(result.invalidNo).to.equal(0);
