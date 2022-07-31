@@ -1,0 +1,5 @@
+Some links will be pure, some in lists to check recursive workings!
+
+link:subdir/sub_article.adoc[Testing link to sub dir]
+
+xref:subdir/sub_article.adoc[Testing xref to sub dir]

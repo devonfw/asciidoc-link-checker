@@ -9,7 +9,7 @@
   "contributors": [
     "Salvador Furio Veguer <salvador.furio-verguer@capgemini.com>"
   ],
-  "main": "build/index.ts",
+  "main": "build/glob.ts",
   "scripts": {
     "build": "tsc",
     "test": "mocha --opts mocha.opts",

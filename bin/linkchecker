@@ -18,6 +18,7 @@ Note: It's important to end with '/' for example : linkchecker  ./my-directory/
 Options:
 
   -h, --help            display the help
+  -x, --enforce-xref    enforce that internal links point only to non adoc files and that instead xref is used
 
 `
 
@@ -46,7 +47,7 @@ function linkCheck() {
         if (argv.help || argv.h || !directory) {
             console.log(HELP)
         } else {
-            verify_links.linkChecker(directory)
+            verify_links.linkChecker(directory, argv.x || argv.xref)
         }
 
     } catch (e) {
